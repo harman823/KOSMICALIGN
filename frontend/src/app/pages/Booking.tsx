@@ -353,7 +353,7 @@ export function Booking() {
               <div className="space-y-3 text-sm text-[#7A7A7A]">
                 <div className="flex justify-between"><span className="font-medium">Service:</span> <span>{services.find(s => s.id === selectedService)?.title}</span></div>
                 <div className="flex justify-between"><span className="font-medium">Date:</span> <span>{selectedDate?.toLocaleDateString()}</span></div>
-                <div className="flex justify-between"><span className="font-medium">Time:</span> <span>{selectedTime}</span></div>
+                <div className="flex justify-between"><span className="font-medium">Time:</span> <span>{selectedTime.includes('T') ? new Date(selectedTime).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' }) : selectedTime}</span></div>
                 <div className="flex justify-between"><span className="font-medium">Mode:</span> <span className="capitalize">{formData.location}</span></div>
               </div>
             </div>
