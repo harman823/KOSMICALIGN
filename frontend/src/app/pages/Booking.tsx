@@ -184,7 +184,7 @@ export function Booking() {
         return (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
             <h3 className="text-3xl font-serif font-semibold text-[#585858] mb-8 text-center">Choose Date & Time</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-[#FFF5EA] p-8 rounded-[3rem]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-[#FFF5EA] p-4 md:p-8 rounded-[3rem]">
               <div className="flex justify-center">
                 <DayPicker
                   mode="single"
@@ -219,7 +219,7 @@ export function Booking() {
                             : "bg-white text-[#7A7A7A] border-transparent hover:border-[#E84C3D]/30"
                         }`}
                       >
-                        {timeStr.includes('T') ? new Date(timeStr).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' }) : timeStr}
+                        {timeStr.includes('T') ? new Date(timeStr).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : timeStr}
                       </button>
                     )}) : <div className="text-[#7A7A7A] text-sm col-span-2">No slots available.</div>}
                   </div>
@@ -353,7 +353,7 @@ export function Booking() {
               <div className="space-y-3 text-sm text-[#7A7A7A]">
                 <div className="flex justify-between"><span className="font-medium">Service:</span> <span>{services.find(s => s.id === selectedService)?.title}</span></div>
                 <div className="flex justify-between"><span className="font-medium">Date:</span> <span>{selectedDate?.toLocaleDateString()}</span></div>
-                <div className="flex justify-between"><span className="font-medium">Time:</span> <span>{selectedTime.includes('T') ? new Date(selectedTime).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' }) : selectedTime}</span></div>
+                <div className="flex justify-between"><span className="font-medium">Time:</span> <span>{selectedTime.includes('T') ? new Date(selectedTime).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : selectedTime}</span></div>
                 <div className="flex justify-between"><span className="font-medium">Mode:</span> <span className="capitalize">{formData.location}</span></div>
               </div>
             </div>
@@ -371,7 +371,7 @@ export function Booking() {
         <p className="text-lg text-[#7A7A7A]">Secure your spot for clarity and healing.</p>
       </div>
 
-      <div className="bg-white p-8 md:p-16 rounded-[3rem] shadow-[0_8px_32px_rgba(88,88,88,0.02)] min-h-[600px] relative overflow-hidden">
+      <div className="bg-white p-6 md:p-16 rounded-[3rem] shadow-[0_8px_32px_rgba(88,88,88,0.02)] min-h-[600px] relative overflow-hidden">
         {/* Progress bar */}
         {step < 4 && (
           <div className="mb-16">

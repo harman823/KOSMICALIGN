@@ -67,15 +67,15 @@ export function Home() {
   ];
 
   const toolsUsed = [
-    { name: "Inner Child Therapy", desc: "Healing early emotional wounds to nurture a healthy adult self." },
-    { name: "Attachment Trauma Therapy", desc: "Rebuilding secure relational bonds by addressing past traumas." },
-    { name: "CBT Techniques", desc: "Restructuring negative thought patterns into positive behaviors." },
     { name: "NLP Tools & Techniques", desc: "Reprogramming neural pathways to improve communication and habits." },
-    { name: "Guided Meditations", desc: "Deep relaxation practices to center the mind and spirit." },
+    { name: "CBT Techniques", desc: "Restructuring negative thought patterns into positive behaviors." },
+    { name: "Micro Constellation Work", desc: "Visualizing and resolving hidden family dynamics and entanglements." },
+    { name: "Attachment Trauma Therapy", desc: "Rebuilding secure relational bonds by addressing past traumas." },
+    { name: "Inner Child Therapy", desc: "Healing early emotional wounds to nurture a healthy adult self." },
+    { name: "Intergenerational Trauma Therapy", desc: "Healing inherited traumas passed down through family lines." },
     { name: "Self Analysis", desc: "Empowering introspection to understand personal emotional triggers." },
-    { name: "Art Therapy", desc: "Expressive healing through creative visual mediums." },
-    { name: "Music Therapy", desc: "Harmonizing emotions and reducing stress through auditory healing." },
-    { name: "Micro Constellation Work", desc: "Visualizing and resolving hidden family dynamics and entanglements." }
+    { name: "Guided Meditations", desc: "Deep relaxation practices to center the mind and spirit." },
+    { name: "Art Therapy", desc: "Expressive healing through creative visual mediums." }
   ];
 
   const steps = [

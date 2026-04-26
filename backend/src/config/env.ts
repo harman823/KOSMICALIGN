@@ -3,6 +3,22 @@ import { loadEnvironment } from './load-env';
 
 loadEnvironment();
 
+const cleanEnvValue = (value: unknown) => {
+  if (typeof value !== 'string') {
+    return value;
+  }
+
+  const trimmed = value.trim();
+  if (trimmed === '""' || trimmed === "''") {
+    return '';
+  }
+
+  return trimmed;
+};
+
+const optionalEnvString = z.preprocess(cleanEnvValue, z.string().optional());
+const requiredEnvString = (message: string) => z.preprocess(cleanEnvValue, z.string().min(1, message));
+
 const envSchema = z.object({
   PORT: z.string().default('3000'),
   DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
@@ -10,9 +26,9 @@ const envSchema = z.object({
   FRONTEND_URL: z.string().optional(),
   
   // External APIs
-  RAZORPAY_KEY_ID: z.string().optional(),
-  RAZORPAY_API_KEY: z.string().optional(),
-  RAZORPAY_KEY_SECRET: z.string().min(1, 'RAZORPAY_KEY_SECRET is required'),
+  RAZORPAY_KEY_ID: optionalEnvString,
+  RAZORPAY_API_KEY: optionalEnvString,
+  RAZORPAY_KEY_SECRET: requiredEnvString('RAZORPAY_KEY_SECRET is required'),
   
   // Google Calendar Integration
   GOOGLE_API_KEY: z.string().optional(),
