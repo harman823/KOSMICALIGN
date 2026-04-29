@@ -148,8 +148,8 @@ export function Home() {
             return (
             <motion.div key={service.title} variants={itemVariants} whileHover={{ y: -8 }} className={`rounded-[2rem] overflow-hidden ${service.bg} group flex flex-col h-full shadow-sm`}>
               <div className="h-56 overflow-hidden relative">
-                <img src={service.image} alt={service.title} className="w-full h-full object-cover opacity-70 grayscale saturate-50 transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-white/20" />
+                <img src={service.image} alt={service.title} className="w-full h-full object-cover opacity-70 grayscale saturate-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0 group-hover:saturate-100" />
+                <div className="absolute inset-0 bg-white/20 transition-opacity duration-700 group-hover:opacity-0" />
               </div>
               <div className="p-8 flex-1 flex flex-col justify-between bg-white/60 backdrop-blur-sm">
                 <div>

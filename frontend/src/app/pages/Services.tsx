@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router";
-import { Star, Clock, MapPin, Globe, Sparkles, Heart, Info } from "lucide-react";
+import { Star, Clock, Sparkles, Heart, Info } from "lucide-react";
 import { fetchServices } from "../../lib/api";
 import { FALLBACK_SERVICES, REGISTRATION_PRICE, getServicePriceUnit, normalizeServicesResponse } from "../../lib/services";
 
@@ -99,15 +99,6 @@ export function Services() {
                   {service.description}
                 </p>
 
-                <div className="flex flex-wrap items-center gap-3 mb-10">
-                  <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-full text-xs font-semibold text-[#585858] flex items-center gap-1.5 border border-black/5">
-                    {service.sessionMode === "OFFLINE" ? <MapPin className="w-3.5 h-3.5" /> : <Globe className="w-3.5 h-3.5" />}
-                    {service.sessionMode === "OFFLINE" ? "In-person" : "Online Only"}
-                  </div>
-                  <div className="px-4 py-2 bg-white/80 backdrop-blur-md rounded-full text-xs font-semibold text-[#585858] border border-black/5">
-                    Registration ₹{REGISTRATION_PRICE} one-time
-                  </div>
-                </div>
               </div>
 
               <Link
