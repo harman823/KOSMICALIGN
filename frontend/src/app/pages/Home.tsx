@@ -82,8 +82,8 @@ function HeroTreeIllustration() {
                 stroke="#FFE3EC"
                 strokeWidth="2"
                 initial={{ scale: 0.72, opacity: 0 }}
-                animate={{ scale: [0.95, 1.08, 0.95], opacity: 1 }}
-                transition={{ duration: 3.8, delay: clusterIndex * 0.18 + pointIndex * 0.08, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, delay: clusterIndex * 0.12 + pointIndex * 0.05, ease: [0.22, 1, 0.36, 1] }}
               />
             ))}
           </g>
@@ -97,9 +97,9 @@ function HeroTreeIllustration() {
           style={{ left: petal.x, top: petal.y, width: petal.size, height: petal.size }}
           animate={{
             x: [0, petal.drift, petal.drift * -0.35, petal.drift * 0.45],
-            y: [0, 54, 118, 190],
-            opacity: [0, 0.86, 0.55, 0],
-            scale: [0.75, 1, 0.92, 0.72],
+            y: [0, 22, 118, 190],
+            opacity: [0.78, 0.78, 0.5, 0],
+            scale: [0.95, 0.98, 0.88, 0.72],
           }}
           transition={{
             duration: 7.2 + index * 0.22,
