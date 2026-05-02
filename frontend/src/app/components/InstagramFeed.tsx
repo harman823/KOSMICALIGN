@@ -1,11 +1,9 @@
 import React from "react";
 import { motion } from "motion/react";
-import { ClipboardList, Instagram } from "lucide-react";
+import { Instagram } from "lucide-react";
 
 const INSTAGRAM_URL =
   "https://www.instagram.com/kosmicalign?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
-const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSc0-_Q7dRxEdjSYo0Q_39y3RbKJk3lzHgTwh5Fvh3RVctmh8Q/viewform?usp=send_form";
 
 export function InstagramFeed() {
   const itemVariants = {
@@ -23,26 +21,17 @@ export function InstagramFeed() {
           Follow Our Journey
         </motion.h2>
         <motion.p variants={itemVariants} className="text-[#7A7A7A] max-w-xl mx-auto text-base md:text-lg mb-6">
-          Daily affirmations, insights, and behind the scenes on Instagram.
+          Insights and behind the scenes on Instagram.
         </motion.p>
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-8 py-3 bg-white border-2 border-[#E84C3D] text-[#E84C3D] rounded-full font-semibold hover:bg-[#E84C3D] hover:text-white transition-all duration-300"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-8 py-3 bg-white border border-[#E84C3D] text-[#E84C3D] rounded-full font-semibold transition-colors duration-300 hover:bg-[#E84C3D] hover:text-white"
           >
             <Instagram className="w-4 h-4" />
             @KosmicAlign
-          </a>
-          <a
-            href={GOOGLE_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-8 py-3 bg-[#E84C3D] border-2 border-[#E84C3D] text-white rounded-full font-semibold hover:bg-[#C0392B] hover:border-[#C0392B] transition-all duration-300"
-          >
-            <ClipboardList className="w-4 h-4" />
-            Google Form
           </a>
         </motion.div>
       </div>

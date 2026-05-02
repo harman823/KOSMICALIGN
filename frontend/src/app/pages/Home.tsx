@@ -1,104 +1,100 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router";
-import { ArrowRight, Star, Heart, Sun, MapPin, Globe, Sparkles, User, Calendar, MessageCircle } from "lucide-react";
+import { ArrowRight, Star, Heart, Sun, MapPin, Globe, Sparkles, User, Calendar, MessageCircle, ClipboardList } from "lucide-react";
 import { fetchServices } from "../../lib/api";
 import { FALLBACK_SERVICES, normalizeServicesResponse } from "../../lib/services";
 import { InstagramFeed } from "../components/InstagramFeed";
 
+const GOOGLE_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSc0-_Q7dRxEdjSYo0Q_39y3RbKJk3lzHgTwh5Fvh3RVctmh8Q/viewform?usp=send_form";
+
 const fallingPetals = [
-  { x: "54%", y: "49%", size: 8, delay: 0, drift: 16 },
-  { x: "59%", y: "46%", size: 6, delay: 0.35, drift: -10 },
-  { x: "61%", y: "42%", size: 7, delay: 0.7, drift: -12 },
-  { x: "66%", y: "45%", size: 6, delay: 1.05, drift: 13 },
-  { x: "69%", y: "47%", size: 9, delay: 1.4, drift: 18 },
-  { x: "76%", y: "45%", size: 7, delay: 1.75, drift: -14 },
-  { x: "80%", y: "47%", size: 6, delay: 2.1, drift: 10 },
-  { x: "84%", y: "48%", size: 8, delay: 2.45, drift: 12 },
-  { x: "89%", y: "45%", size: 6, delay: 2.8, drift: -11 },
-  { x: "92%", y: "43%", size: 7, delay: 3.15, drift: -16 },
-  { x: "97%", y: "40%", size: 8, delay: 3.5, drift: 14 },
+  { x: "58%", y: "13%", size: 12, delay: 0, drift: 18 },
+  { x: "63%", y: "20%", size: 9, delay: 0.35, drift: -14 },
+  { x: "69%", y: "9%", size: 13, delay: 0.7, drift: 12 },
+  { x: "74%", y: "24%", size: 8, delay: 1.05, drift: -10 },
+  { x: "80%", y: "14%", size: 11, delay: 1.4, drift: 16 },
+  { x: "86%", y: "23%", size: 9, delay: 1.75, drift: -12 },
+  { x: "92%", y: "15%", size: 12, delay: 2.1, drift: 14 },
+  { x: "96%", y: "28%", size: 8, delay: 2.45, drift: -16 },
+  { x: "77%", y: "7%", size: 10, delay: 2.8, drift: 10 },
+  { x: "88%", y: "8%", size: 11, delay: 3.15, drift: -13 },
+  { x: "66%", y: "31%", size: 8, delay: 3.5, drift: 15 },
 ];
 
 function HeroTreeIllustration() {
-  const berryClusters = [
-    { x: 240, y: 390, points: [[0, 0], [24, -30], [40, -2], [60, -42], [80, -16], [96, -58]] },
-    { x: 408, y: 438, points: [[0, 0], [28, -18], [48, 10], [64, -28], [84, -6]] },
-    { x: 664, y: 355, points: [[0, 0], [18, -38], [44, -18], [52, -60], [80, -40], [98, -72]] },
-    { x: 822, y: 390, points: [[0, 0], [26, -26], [50, -10], [66, -46], [88, -24], [106, -58]] },
-    { x: 1012, y: 436, points: [[0, 0], [20, -28], [42, -4], [58, -42], [76, -18]] },
-  ];
-
   return (
     <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
       <motion.svg
         viewBox="0 0 1240 700"
         preserveAspectRatio="xMidYMid slice"
-        className="absolute inset-y-0 right-[-7%] h-full w-[110%] min-w-[880px] opacity-95"
+        className="absolute top-[-9%] right-[-9%] h-[118%] w-[108%] min-w-[880px] opacity-95"
         initial={{ opacity: 0, x: 42, y: 10 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
       >
         <defs>
-          <filter id="branch-shadow" x="-15%" y="-20%" width="130%" height="150%">
-            <feDropShadow dx="0" dy="14" stdDeviation="11" floodColor="#5B2C17" floodOpacity="0.11" />
+          <pattern id="hero-tree-bark" width="22" height="22" patternUnits="userSpaceOnUse">
+            <path d="M0 6 C7 2 15 10 22 6 M0 16 C7 12 15 20 22 16" fill="none" stroke="#F1E8CF" strokeWidth="2.4" />
+          </pattern>
+          <filter id="tree-shadow" x="-15%" y="-20%" width="135%" height="150%">
+            <feDropShadow dx="0" dy="14" stdDeviation="12" floodColor="#2F1F0E" floodOpacity="0.12" />
           </filter>
         </defs>
 
-        <g filter="url(#branch-shadow)" fill="none" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M-78 496 C70 476 172 438 280 460 C390 484 456 527 574 492 C684 459 772 392 884 410 C1006 430 1096 388 1288 330" stroke="#5A321F" strokeWidth="16" />
-          <path d="M-60 501 C82 488 172 450 278 471 C392 494 464 530 574 501 C690 472 770 414 886 422 C1006 432 1102 401 1284 348" stroke="#7B4A2A" strokeWidth="7" opacity="0.7" />
-
-          <path d="M128 468 C148 420 160 370 202 342 C228 326 258 315 284 289" stroke="#4D2B1B" strokeWidth="7" />
-          <path d="M196 345 C195 309 205 276 234 252" stroke="#4D2B1B" strokeWidth="4.4" />
-          <path d="M220 330 C246 316 266 300 278 270" stroke="#4D2B1B" strokeWidth="4.4" />
-          <path d="M250 359 C292 346 326 332 360 296" stroke="#4D2B1B" strokeWidth="5.2" />
-          <path d="M320 322 C318 288 330 262 354 240" stroke="#4D2B1B" strokeWidth="3.8" />
-
-          <path d="M390 496 C410 458 432 434 474 414" stroke="#4D2B1B" strokeWidth="5.6" />
-          <path d="M456 424 C454 392 468 370 494 350" stroke="#4D2B1B" strokeWidth="4.2" />
-          <path d="M476 414 C500 412 524 402 548 378" stroke="#4D2B1B" strokeWidth="4.2" />
-
-          <path d="M626 474 C640 428 654 370 690 330" stroke="#4D2B1B" strokeWidth="7" />
-          <path d="M682 340 C674 294 682 260 710 230" stroke="#4D2B1B" strokeWidth="4.5" />
-          <path d="M690 338 C722 312 756 288 790 246" stroke="#4D2B1B" strokeWidth="5.3" />
-          <path d="M756 290 C756 260 770 234 796 214" stroke="#4D2B1B" strokeWidth="3.8" />
-
-          <path d="M804 412 C828 376 858 344 904 320" stroke="#4D2B1B" strokeWidth="5.4" />
-          <path d="M882 331 C886 294 904 266 936 244" stroke="#4D2B1B" strokeWidth="4.2" />
-          <path d="M904 324 C942 318 974 300 1010 270" stroke="#4D2B1B" strokeWidth="4.8" />
-
-          <path d="M982 410 C1010 374 1042 334 1094 304" stroke="#4D2B1B" strokeWidth="5.8" />
-          <path d="M1070 318 C1084 280 1110 250 1142 226" stroke="#4D2B1B" strokeWidth="4.2" />
-          <path d="M1095 304 C1146 306 1194 286 1246 248" stroke="#4D2B1B" strokeWidth="4.4" />
-          <path d="M1210 272 C1242 284 1268 300 1296 326" stroke="#4D2B1B" strokeWidth="3.6" />
+        <g filter="url(#tree-shadow)" opacity="0.98">
+          <circle cx="640" cy="10" r="175" fill="#A996BE" opacity="0.9" />
+          <circle cx="790" cy="-8" r="205" fill="#4A1977" />
+          <circle cx="980" cy="-14" r="210" fill="#3D126C" />
+          <circle cx="1110" cy="44" r="172" fill="#4D1F7D" />
+          <circle cx="760" cy="118" r="145" fill="#6D3E96" />
+          <circle cx="940" cy="118" r="154" fill="#4A1977" />
         </g>
 
-        {berryClusters.map((cluster, clusterIndex) => (
-          <g key={clusterIndex}>
-            {cluster.points.map(([x, y], pointIndex) => (
-              <motion.circle
-                key={`${clusterIndex}-${pointIndex}`}
-                cx={cluster.x + x}
-                cy={cluster.y + y}
-                r={pointIndex % 3 === 0 ? 9 : 7}
-                fill={pointIndex % 2 === 0 ? "#D60E5B" : "#F04A83"}
-                stroke="#FFE3EC"
-                strokeWidth="2"
-                initial={{ scale: 0.72, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.8, delay: clusterIndex * 0.12 + pointIndex * 0.05, ease: [0.22, 1, 0.36, 1] }}
+        <g opacity="0.76">
+          {Array.from({ length: 46 }).map((_, index) => {
+            const cx = 600 + ((index * 83) % 590);
+            const cy = -8 + ((index * 47) % 190);
+            const rx = 10 + (index % 5) * 2;
+            const angle = (index * 31) % 180;
+            const fill = index % 3 === 0 ? "#EEE8F4" : index % 3 === 1 ? "#5A238A" : "#6C3297";
+
+            return (
+              <ellipse
+                key={index}
+                cx={cx}
+                cy={cy}
+                rx={rx}
+                ry={rx * 1.65}
+                transform={`rotate(${angle} ${cx} ${cy})`}
+                fill={fill}
+                opacity={index % 3 === 0 ? 0.92 : 0.42}
               />
-            ))}
-          </g>
-        ))}
+            );
+          })}
+        </g>
+
+        <g fill="none" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M1068 -80 C1080 46 1076 160 1042 292 C1016 392 1024 500 1072 708" stroke="#685B38" strokeWidth="86" />
+          <path d="M1068 -80 C1080 46 1076 160 1042 292 C1016 392 1024 500 1072 708" stroke="url(#hero-tree-bark)" strokeWidth="86" />
+
+          <path d="M978 258 C832 270 724 322 628 398" stroke="#685B38" strokeWidth="72" />
+          <path d="M978 258 C832 270 724 322 628 398" stroke="url(#hero-tree-bark)" strokeWidth="72" />
+
+          <path d="M925 198 C822 170 736 100 680 -58" stroke="#685B38" strokeWidth="62" />
+          <path d="M925 198 C822 170 736 100 680 -58" stroke="url(#hero-tree-bark)" strokeWidth="62" />
+
+          <path d="M1012 176 C1100 150 1166 88 1238 -12" stroke="#685B38" strokeWidth="60" />
+          <path d="M1012 176 C1100 150 1166 88 1238 -12" stroke="url(#hero-tree-bark)" strokeWidth="60" />
+        </g>
       </motion.svg>
 
       {fallingPetals.map((petal, index) => (
         <motion.span
           key={index}
-          className="absolute block rounded-full bg-[#D60E5B]"
-          style={{ left: petal.x, top: petal.y, width: petal.size, height: petal.size }}
+          className="absolute block rounded-[70%_0_70%_0] bg-[#E9E3F2]"
+          style={{ left: petal.x, top: petal.y, width: petal.size, height: petal.size * 1.55, rotate: index % 2 ? -22 : 18 }}
           animate={{
             x: [0, petal.drift, petal.drift * -0.35, petal.drift * 0.45],
             y: [0, 22, 118, 190],
@@ -234,11 +230,11 @@ export function Home() {
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-            <Link to="/booking" className="w-full sm:w-auto px-7 py-3.5 bg-white text-[#171717] rounded-full text-base font-semibold transition-all border border-[#171717] hover:bg-[#171717] hover:text-white flex items-center justify-center gap-2">
+            <Link to="/booking" className="group w-full sm:w-auto px-7 py-3.5 bg-white text-[#171717] rounded-full text-base font-semibold transition-colors duration-300 border border-[#171717] hover:bg-[#171717] hover:text-white flex items-center justify-center gap-2">
               Book Your Session <ArrowRight className="w-5 h-5" />
             </Link>
-            <Link to="/services" className="w-full sm:w-auto px-2 py-3.5 text-[#171717] text-base font-semibold hover:text-[#4B2B83] transition-all flex items-center justify-center gap-2">
-              Explore Services <ArrowRight className="w-4 h-4" />
+            <Link to="/services" className="group w-full sm:w-auto px-2 py-3.5 text-[#171717] text-base font-semibold hover:text-[#4B2B83] transition-colors duration-300 flex items-center justify-center gap-2">
+              Explore Services <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
           </motion.div>
         </div>
@@ -261,10 +257,10 @@ export function Home() {
             const bookingLink = dbService ? `/booking?service=${dbService.id}` : "/booking";
 
             return (
-            <motion.div key={service.title} variants={itemVariants} whileHover={{ y: -8 }} className={`rounded-[2rem] overflow-hidden ${service.bg} group flex flex-col h-full shadow-sm`}>
+            <motion.div key={service.title} variants={itemVariants} whileHover={{ y: -4 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }} className={`rounded-[2rem] overflow-hidden ${service.bg} group flex flex-col h-full shadow-sm`}>
               <div className="h-56 overflow-hidden relative">
-                <img src={service.image} alt={service.title} className="w-full h-full object-cover opacity-70 grayscale saturate-50 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0 group-hover:saturate-100" />
-                <div className="absolute inset-0 bg-white/20 transition-opacity duration-700 group-hover:opacity-0" />
+                <img src={service.image} alt={service.title} className="w-full h-full object-cover opacity-95 transition-transform duration-700 ease-out group-hover:scale-[1.015]" />
+                <div className="absolute inset-0 bg-white/5 transition-opacity duration-700 group-hover:opacity-0" />
               </div>
               <div className="p-8 flex-1 flex flex-col justify-between bg-white/60 backdrop-blur-sm">
                 <div>
@@ -274,8 +270,8 @@ export function Home() {
                   <h3 className="text-2xl font-serif font-semibold text-[#585858] mb-3">{service.title}</h3>
                   <p className="text-[#7A7A7A] leading-relaxed mb-6">{service.desc}</p>
                 </div>
-                <Link to={bookingLink} className="inline-flex items-center text-[#E84C3D] font-semibold hover:gap-3 transition-all gap-2">
-                  Book Session <ArrowRight className="w-4 h-4" />
+                <Link to={bookingLink} className="group/link inline-flex items-center text-[#E84C3D] font-semibold transition-colors duration-300 gap-2 hover:text-[#C0392B]">
+                  Book Session <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5" />
                 </Link>
               </div>
             </motion.div>
@@ -364,15 +360,28 @@ export function Home() {
       {/* Instagram Feed */}
       <InstagramFeed />
 
-      {/* Testimonials */}
-      <section className="bg-white rounded-[3rem] py-24 px-6 md:px-12 text-center relative overflow-hidden shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFF5EA] rounded-full blur-[100px]" />
-        
+      {/* Client Intake */}
+      <section className="bg-white rounded-[3rem] py-20 px-6 md:px-12 text-center relative overflow-hidden shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#FFF5EA] rounded-full blur-[100px]" />
+
         <motion.div variants={itemVariants} className="max-w-3xl mx-auto relative z-10">
-          <Heart className="w-12 h-12 text-[#E5BE90] mx-auto mb-8" />
-          <h2 className="text-3xl md:text-4xl font-serif text-[#585858] font-medium leading-relaxed mb-12">
-            "I've never had such a supportive experience in a session. The insight was excellent, and the professional care is unmatched. Highly recommended!"
+          <div className="w-14 h-14 rounded-full bg-[#FFF5EA] border border-[#E5BE90]/30 flex items-center justify-center mx-auto mb-7 shadow-sm">
+            <ClipboardList className="w-7 h-7 text-[#E84C3D]" />
+          </div>
+          <h2 className="text-3xl md:text-4xl font-serif font-semibold text-[#585858] mb-4">
+            Client Intake Form
           </h2>
+          <p className="text-[#7A7A7A] text-lg leading-relaxed max-w-2xl mx-auto mb-8">
+            Share a little about what brings you here so your first conversation can begin with care, context, and clarity.
+          </p>
+          <a
+            href={GOOGLE_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-[#E84C3D] text-white rounded-full font-semibold transition-colors duration-300 hover:bg-[#C0392B]"
+          >
+            Complete Intake Form <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+          </a>
         </motion.div>
       </section>
     </motion.div>

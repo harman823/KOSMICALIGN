@@ -1,11 +1,9 @@
 import React from "react";
 import { Link, Outlet, useLocation } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { ClipboardList, Instagram, Mail, MapPin, MessageCircle, Star, Menu, X } from "lucide-react";
+import { Instagram, Mail, MapPin, MessageCircle, Star, Menu, X } from "lucide-react";
 import { Chatbot } from "./Chatbot";
 
-const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSc0-_Q7dRxEdjSYo0Q_39y3RbKJk3lzHgTwh5Fvh3RVctmh8Q/viewform?usp=send_form";
 const INSTAGRAM_URL =
   "https://www.instagram.com/kosmicalign?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
 
@@ -68,7 +66,7 @@ export function Layout() {
           <div className="hidden md:flex items-center">
             <Link
               to="/booking"
-              className="bg-[#E84C3D] text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-[#C0392B] hover:shadow-[0_8px_32px_rgba(117,162,158,0.25)] transition-all duration-200 ease-out transform hover:scale-[1.02] flex items-center gap-2"
+              className="bg-[#E84C3D] text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-[#C0392B] transition-colors duration-300 flex items-center gap-2"
             >
               Book Session <Star className="w-4 h-4" />
             </Link>
@@ -181,12 +179,6 @@ export function Layout() {
                 <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-[#E84C3D] transition-colors">
                   <Instagram className="h-4 w-4 text-[#E84C3D]" />
                   Instagram
-                </a>
-              </li>
-              <li>
-                <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-[#E84C3D] transition-colors">
-                  <ClipboardList className="h-4 w-4 text-[#E84C3D]" />
-                  Google Form
                 </a>
               </li>
             </ul>
