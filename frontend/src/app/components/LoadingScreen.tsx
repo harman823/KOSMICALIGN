@@ -72,10 +72,10 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           className="mb-6"
         >
           <span
-            className="block h-16 w-16 bg-[#102A43] md:h-20 md:w-20"
+            className="block h-16 w-16 bg-[#125E8A] md:h-20 md:w-20"
             style={{
-              WebkitMask: "url('/img/logo.png') center / contain no-repeat",
-              mask: "url('/img/logo.png') center / contain no-repeat",
+              WebkitMask: "url('/img/logo-blue.png') center / contain no-repeat",
+              mask: "url('/img/logo-blue.png') center / contain no-repeat",
             }}
             aria-label="KosmicAlign Logo"
           />
@@ -86,7 +86,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex font-serif text-3xl sm:text-4xl md:text-5xl text-[#102A43] font-semibold tracking-tight"
+          className="flex font-serif text-3xl sm:text-4xl md:text-5xl text-[#125E8A] font-semibold tracking-tight"
         >
           {letters.map((letter, index) => (
             <motion.div key={index} variants={letterVariants}>

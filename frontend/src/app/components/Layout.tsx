@@ -10,10 +10,10 @@ const INSTAGRAM_URL =
 function LogoMark({ className = "" }: { className?: string }) {
   return (
     <span
-      className={`block h-8 w-8 shrink-0 bg-[#102A43] transition-transform group-hover:rotate-12 ${className}`}
+      className={`block h-8 w-8 shrink-0 bg-[#125E8A] transition-transform group-hover:rotate-12 ${className}`}
       style={{
-        WebkitMask: "url('/img/logo.png') center / contain no-repeat",
-        mask: "url('/img/logo.png') center / contain no-repeat",
+        WebkitMask: "url('/img/logo-blue.png') center / contain no-repeat",
+        mask: "url('/img/logo-blue.png') center / contain no-repeat",
       }}
       aria-hidden="true"
     />
@@ -43,7 +43,7 @@ export function Layout() {
         <nav className="max-w-7xl mx-auto glass-panel rounded-full px-4 py-3 sm:px-6 flex items-center justify-between ghost-border shadow-[0_8px_32px_rgba(88,88,88,0.06)]">
           <Link to="/" className="flex items-center gap-2 group">
             <LogoMark className="h-7 w-7 sm:h-8 sm:w-8" />
-            <span className="font-serif text-lg sm:text-xl font-semibold tracking-tight text-[#102A43]">KosmicAlign</span>
+            <span className="font-serif text-lg sm:text-xl font-semibold tracking-tight text-[#125E8A]">KosmicAlign</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -143,7 +143,7 @@ export function Layout() {
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4 sm:mb-6 group">
               <LogoMark className="transition-none group-hover:rotate-0" />
-              <span className="font-serif text-2xl font-semibold text-[#102A43]">KosmicAlign</span>
+              <span className="font-serif text-2xl font-semibold text-[#125E8A]">KosmicAlign</span>
             </Link>
             <p className="text-[#7A7A7A] leading-relaxed max-w-md font-sans text-sm sm:text-base">
               A holistic counselling and therapy space for structured healing, inner alignment, and support through life's tough moments.
