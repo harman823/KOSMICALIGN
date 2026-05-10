@@ -39,21 +39,21 @@ export function Services() {
   };
 
   return (
-    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-7xl mx-auto space-y-24 pt-20">
+    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-7xl mx-auto space-y-16 sm:space-y-24 pt-10 sm:pt-20">
       <section className="text-center max-w-3xl mx-auto">
         <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md text-[#7A7A7A] font-medium text-sm mb-8 shadow-sm">
           <Sparkles className="w-4 h-4 text-[#E5BE90]" />
           My Offerings
         </motion.div>
-        <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-serif font-semibold text-[#585858] leading-tight mb-6">
+        <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl md:text-7xl font-serif font-semibold text-[#585858] leading-tight mb-6">
           Find the Right Path <br /> for You
         </motion.h1>
-        <motion.p variants={itemVariants} className="text-lg text-[#7A7A7A] leading-relaxed">
+        <motion.p variants={itemVariants} className="text-base sm:text-lg text-[#7A7A7A] leading-relaxed">
           I offer structured counselling and therapy sessions designed to meet you exactly where you are, with one-on-one support for healing, clarity, and alignment.
         </motion.p>
       </section>
 
-      <motion.section variants={itemVariants} className="bg-white rounded-[2rem] border border-[#E5BE90]/30 p-6 md:p-8 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
+      <motion.section variants={itemVariants} className="bg-white rounded-[1.5rem] sm:rounded-[2rem] border border-[#E5BE90]/30 p-5 sm:p-6 md:p-8 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
         <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between text-[#585858]">
           <div className="flex items-start gap-3">
             <Info className="w-5 h-5 text-[#E84C3D] mt-1 shrink-0" />
@@ -62,13 +62,13 @@ export function Services() {
               <p className="text-[#7A7A7A] mt-1">Number of sessions may vary for each client.</p>
             </div>
           </div>
-          <div className="rounded-full bg-[#FFF5EA] px-5 py-3 text-sm font-semibold text-[#585858]">
+          <div className="rounded-2xl sm:rounded-full bg-[#FFF5EA] px-4 sm:px-5 py-3 text-sm font-semibold text-[#585858]">
             Registration charges: ₹{REGISTRATION_PRICE} per head, one-time
           </div>
         </div>
       </motion.section>
 
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
         {loading ? (
           <div className="col-span-1 md:col-span-2 text-center text-[#7A7A7A] py-12">Loading offerings...</div>
         ) : services.map((service, idx) => {
@@ -78,13 +78,14 @@ export function Services() {
             <motion.div
               key={service.id || idx}
               variants={itemVariants}
-              className={`${aesthetic.bg} p-10 md:p-12 rounded-[3rem] border border-black/5 shadow-[0_8px_32px_rgba(88,88,88,0.02)] flex flex-col h-full hover:shadow-[0_12px_48px_rgba(88,88,88,0.05)] transition-shadow duration-500`}
+              whileTap={{ scale: 0.99 }}
+              className={`${aesthetic.bg} p-6 sm:p-10 md:p-12 rounded-[1.75rem] sm:rounded-[3rem] border border-black/5 shadow-[0_8px_32px_rgba(88,88,88,0.02)] flex flex-col h-full hover:shadow-[0_12px_48px_rgba(88,88,88,0.05)] transition-shadow duration-500`}
             >
-              <div className="flex items-start justify-between gap-6 mb-8">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
-                  <Icon className={`w-8 h-8 ${aesthetic.accent}`} />
+              <div className="flex items-start justify-between gap-4 sm:gap-6 mb-6 sm:mb-8">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">
+                  <Icon className={`w-6 h-6 sm:w-8 sm:h-8 ${aesthetic.accent}`} />
                 </div>
-                <div className="text-right">
+                <div className="text-right min-w-0">
                   <div className="text-2xl font-serif font-semibold text-[#585858] mb-1">₹{service.price}</div>
                   <div className="text-xs text-[#7A7A7A] font-semibold uppercase tracking-wider mb-2">{getServicePriceUnit(service.title)}</div>
                   <div className="flex items-center justify-end gap-1 text-sm text-[#7A7A7A] font-medium">
@@ -94,8 +95,8 @@ export function Services() {
               </div>
 
               <div className="flex-1">
-                <h3 className="text-3xl font-serif font-semibold text-[#585858] mb-4">{service.title}</h3>
-                <p className="text-lg text-[#7A7A7A] mb-8 leading-relaxed">
+                <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#585858] mb-4">{service.title}</h3>
+                <p className="text-base sm:text-lg text-[#7A7A7A] mb-8 leading-relaxed">
                   {service.description}
                 </p>
 
@@ -103,7 +104,7 @@ export function Services() {
 
               <Link
                 to={`/booking?service=${service.id}`}
-                className="w-full text-center px-8 py-4 bg-[#E84C3D] text-white rounded-full text-lg font-semibold hover:bg-[#C0392B] hover:shadow-[0_12px_40px_rgba(117,162,158,0.2)] transition-all transform hover:-translate-y-1"
+                className="w-full text-center px-6 sm:px-8 py-3.5 sm:py-4 bg-[#E84C3D] text-white rounded-full text-base sm:text-lg font-semibold hover:bg-[#C0392B] hover:shadow-[0_12px_40px_rgba(117,162,158,0.2)] transition-all transform hover:-translate-y-1 active:translate-y-0"
               >
                 Book Session
               </Link>

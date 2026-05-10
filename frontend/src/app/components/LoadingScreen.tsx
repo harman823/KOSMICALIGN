@@ -86,7 +86,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex font-serif text-4xl md:text-5xl text-[#102A43] font-semibold tracking-tight"
+          className="flex font-serif text-3xl sm:text-4xl md:text-5xl text-[#102A43] font-semibold tracking-tight"
         >
           {letters.map((letter, index) => (
             <motion.div key={index} variants={letterVariants}>

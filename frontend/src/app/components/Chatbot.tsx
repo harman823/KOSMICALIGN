@@ -7,7 +7,7 @@ export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -15,7 +15,7 @@ export function Chatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="bg-white rounded-[2rem] shadow-[0_8px_40px_rgba(88,88,88,0.1)] w-80 mb-4 overflow-hidden border border-[#FFF5EA]"
+            className="bg-white rounded-[1.5rem] sm:rounded-[2rem] shadow-[0_8px_40px_rgba(88,88,88,0.1)] w-[calc(100vw-2rem)] max-w-80 mb-4 overflow-hidden border border-[#FFF5EA]"
           >
             {/* Header */}
             <div className="bg-[#E84C3D] p-5 text-white flex items-center justify-between">
@@ -37,7 +37,7 @@ export function Chatbot() {
             </div>
 
             {/* Chat Body */}
-            <div className="p-6 bg-[#FFF5EA]/50 h-64 overflow-y-auto flex flex-col gap-4">
+            <div className="p-5 sm:p-6 bg-[#FFF5EA]/50 h-56 sm:h-64 overflow-y-auto flex flex-col gap-4">
               <div className="bg-white p-4 rounded-2xl rounded-tl-sm shadow-sm border border-[#E5BE90]/20 text-sm text-[#585858]">
                 Namaste 🙏 I'm here to guide you toward inner alignment.
               </div>
@@ -62,7 +62,8 @@ export function Chatbot() {
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-16 h-16 bg-[#E84C3D] text-white rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(232,76,61,0.4)] hover:bg-[#C0392B] hover:scale-105 transition-all duration-300"
+        className="w-14 h-14 sm:w-16 sm:h-16 bg-[#E84C3D] text-white rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(232,76,61,0.4)] hover:bg-[#C0392B] hover:scale-105 active:scale-95 transition-all duration-300"
+        aria-label={isOpen ? "Close chat" : "Open chat"}
       >
         {isOpen ? <X className="w-7 h-7" /> : <MessageCircle className="w-7 h-7" />}
       </button>

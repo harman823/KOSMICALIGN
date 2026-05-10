@@ -37,7 +37,7 @@ function HeroTreeIllustration() {
       <motion.svg
         viewBox="0 0 1240 700"
         preserveAspectRatio="xMidYMid slice"
-        className="absolute inset-y-0 right-[-7%] h-full w-[110%] min-w-[880px] opacity-95"
+        className="absolute inset-y-0 right-[-32%] h-full w-[145%] min-w-[520px] opacity-70 sm:right-[-18%] sm:w-[128%] sm:min-w-[720px] sm:opacity-85 lg:right-[-7%] lg:w-[110%] lg:min-w-[880px] lg:opacity-95"
         initial={{ opacity: 0, x: 42, y: 10 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
@@ -118,8 +118,8 @@ function HeroTreeIllustration() {
         />
       ))}
 
-      <div className="absolute inset-y-0 left-0 w-[58%] bg-[#FFF3E4]/80" />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-[#FFF3E4]/70" />
+      <div className="absolute inset-y-0 left-0 w-full bg-[#FFF3E4]/80 sm:w-[70%] lg:w-[58%]" />
+      <div className="absolute inset-x-0 bottom-0 h-28 sm:h-32 bg-[#FFF3E4]/70" />
     </div>
   );
 }
@@ -214,25 +214,25 @@ export function Home() {
   ];
 
   return (
-    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-32">
+    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-20 sm:space-y-24 lg:space-y-32">
       {/* Hero Section */}
-      <section className="relative min-h-[calc(100vh-2rem)] flex items-center overflow-hidden mt-4 px-6 sm:px-10 md:px-20 py-20 md:py-28">
+      <section className="relative min-h-[calc(100svh-6rem)] sm:min-h-[calc(100vh-2rem)] flex items-center overflow-hidden mt-2 sm:mt-4 px-4 sm:px-10 md:px-20 py-16 sm:py-20 md:py-28 rounded-[1.75rem] sm:rounded-[2.5rem]">
         <HeroTreeIllustration />
 
         <div className="relative z-10 max-w-[46rem]">
-          <motion.p variants={itemVariants} className="mb-6 text-sm font-medium tracking-[0.08em] uppercase text-[#6C5B32]">
+          <motion.p variants={itemVariants} className="mb-4 sm:mb-6 text-xs sm:text-sm font-medium tracking-[0.08em] uppercase text-[#6C5B32]">
             Holistic Guidance Counsellor
           </motion.p>
 
-          <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl md:text-6xl font-serif font-semibold text-[#171717] leading-[1.06] mb-7">
+          <motion.h1 variants={itemVariants} className="text-[2.45rem] sm:text-5xl md:text-6xl font-serif font-semibold text-[#171717] leading-[1.08] mb-6 sm:mb-7">
             Here to help you navigate life's tough moments
           </motion.h1>
 
-          <motion.p variants={itemVariants} className="text-lg text-[#313131] mb-4 max-w-xl leading-relaxed">
+          <motion.p variants={itemVariants} className="text-base sm:text-lg text-[#313131] mb-4 max-w-xl leading-relaxed">
             At KosmicAlign, therapy is a process of aligning the mind, body, and spirit with structured, one-on-one support created around your life story.
           </motion.p>
 
-          <motion.p variants={itemVariants} className="text-lg font-serif text-[#171717] mb-9">
+          <motion.p variants={itemVariants} className="text-base sm:text-lg font-serif text-[#171717] mb-8 sm:mb-9">
             You do not have to move through it alone.
           </motion.p>
 
@@ -249,32 +249,32 @@ export function Home() {
 
       {/* Featured Services */}
       <section className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-serif font-semibold text-[#585858] mb-4">
+        <div className="text-center mb-10 sm:mb-16">
+          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold text-[#585858] mb-4">
             Our Core Services
           </motion.h2>
-          <motion.p variants={itemVariants} className="text-[#7A7A7A] max-w-xl mx-auto text-lg">
+          <motion.p variants={itemVariants} className="text-[#7A7A7A] max-w-xl mx-auto text-base sm:text-lg">
             Compassionate, structured guidance tailored to your unique emotional and psychological footprint.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
           {servicesData.map((service, idx) => {
             const dbService = dbServices.find(s => s.title === service.title);
             const bookingLink = dbService ? `/booking?service=${dbService.id}` : "/booking";
 
             return (
-            <motion.div key={service.title} variants={itemVariants} whileHover={{ y: -4 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }} className={`rounded-[2rem] overflow-hidden ${service.bg} group flex flex-col h-full shadow-sm`}>
-              <div className="h-56 overflow-hidden relative">
-                <img src={service.image} alt={service.title} className="w-full h-full object-cover opacity-95 transition-transform duration-700 ease-out group-hover:scale-[1.015]" />
+            <motion.div key={service.title} variants={itemVariants} whileHover={{ y: -4 }} whileTap={{ scale: 0.99 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }} className={`rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden ${service.bg} group flex flex-col h-full shadow-sm`}>
+              <div className="h-48 sm:h-56 overflow-hidden relative">
+                <img src={service.image} alt={service.title} loading="lazy" className="w-full h-full object-cover opacity-95 transition-transform duration-700 ease-out group-hover:scale-[1.015] group-active:scale-[1.015]" />
                 <div className="absolute inset-0 bg-white/5 transition-opacity duration-700 group-hover:opacity-0" />
               </div>
-              <div className="p-8 flex-1 flex flex-col justify-between bg-white/60 backdrop-blur-sm">
+              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between bg-white/60 backdrop-blur-sm">
                 <div>
-                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm">
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center mb-5 sm:mb-6 shadow-sm">
                     <service.icon className="w-6 h-6 text-[#E84C3D]" />
                   </div>
-                  <h3 className="text-2xl font-serif font-semibold text-[#585858] mb-3">{service.title}</h3>
+                  <h3 className="text-xl sm:text-2xl font-serif font-semibold text-[#585858] mb-3">{service.title}</h3>
                   <p className="text-[#7A7A7A] leading-relaxed mb-6">{service.desc}</p>
                 </div>
                 <Link to={bookingLink} className="group/link inline-flex items-center text-[#E84C3D] font-semibold transition-colors duration-300 gap-2 hover:text-[#C0392B]">
@@ -287,16 +287,19 @@ export function Home() {
       </section>
 
       {/* Tools Used */}
-      <section className="max-w-5xl mx-auto bg-[#FDF3E6] rounded-[3rem] p-12 md:p-20 text-center shadow-inner">
-        <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-serif font-semibold text-[#585858] mb-8">
+      <section className="max-w-5xl mx-auto bg-[#FDF3E6] rounded-[1.75rem] sm:rounded-[3rem] p-5 sm:p-12 md:p-20 text-center shadow-inner">
+        <motion.h2 variants={itemVariants} className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-[#585858] mb-8">
           Therapeutic Tools & Techniques
         </motion.h2>
-        <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-4">
+        <motion.div variants={itemVariants} className="grid grid-cols-1 sm:flex sm:flex-wrap justify-center gap-3 sm:gap-4 text-left sm:text-center">
           {toolsUsed.map((tool, idx) => (
-            <div key={idx} className="group relative bg-white px-6 py-3 rounded-full text-[#585858] font-medium shadow-sm hover:shadow-md transition-all border border-[#E5BE90]/30 hover:border-[#E84C3D]/50 cursor-default">
-              <Sparkles className="w-4 h-4 inline-block mr-2 text-[#E84C3D]" /> {tool.name}
+            <div key={idx} tabIndex={0} className="group relative bg-white px-5 py-4 sm:px-6 sm:py-3 rounded-2xl sm:rounded-full text-[#585858] font-medium shadow-sm hover:shadow-md transition-all border border-[#E5BE90]/30 hover:border-[#E84C3D]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E84C3D]/30 cursor-default">
+              <span className="flex items-start sm:inline gap-2">
+                <Sparkles className="w-4 h-4 mt-1 sm:mt-0 sm:inline-block sm:mr-2 text-[#E84C3D] shrink-0" /> {tool.name}
+              </span>
+              <span className="mt-2 block text-sm font-normal leading-relaxed text-[#7A7A7A] sm:hidden">{tool.desc}</span>
               
-              <div className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-200 bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-[#585858] text-white text-xs px-3 py-2 rounded-lg pointer-events-none z-20 shadow-lg text-center">
+              <div className="absolute hidden opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-[#585858] text-white text-xs px-3 py-2 rounded-lg pointer-events-none z-20 shadow-lg text-center sm:block">
                 {tool.desc}
                 <div className="absolute top-full left-1/2 -translate-x-1/2 border-opacity-0 border-4 border-t-[#585858]"></div>
               </div>
@@ -306,14 +309,14 @@ export function Home() {
       </section>
 
       {/* How it Works */}
-      <section className="bg-white rounded-[3rem] p-12 md:p-24 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
+      <section className="bg-white rounded-[1.75rem] sm:rounded-[3rem] p-6 sm:p-12 md:p-24 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-serif font-semibold text-[#585858] mb-4">How It Works</h2>
-            <p className="text-[#7A7A7A] text-lg">A simple way to find alignment and confidence.</p>
+          <div className="text-center mb-10 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl font-serif font-semibold text-[#585858] mb-4">How It Works</h2>
+            <p className="text-[#7A7A7A] text-base sm:text-lg">A simple way to find alignment and confidence.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12 relative">
             <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-[2px] bg-[#FFF5EA]" />
             {steps.map((step, idx) => (
               <div key={idx} className="relative z-10 flex flex-col items-center text-center">
@@ -332,12 +335,12 @@ export function Home() {
       </section>
 
       {/* In Person vs Online */}
-      <section className="bg-white rounded-[3rem] p-10 md:p-20 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
+      <section className="bg-white rounded-[1.75rem] sm:rounded-[3rem] p-6 sm:p-10 md:p-20 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
         <motion.div variants={itemVariants} className="max-w-4xl mx-auto space-y-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-semibold text-[#585858]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold text-[#585858]">
             Find Guidance Wherever You Are
           </h2>
-          <p className="text-lg text-[#7A7A7A] leading-relaxed">
+          <p className="text-base sm:text-lg text-[#7A7A7A] leading-relaxed">
             Whether you prefer the grounding energy of an in-person session or the convenience of remote therapy, KosmicAlign is structured to meet you where you are.
           </p>
 
@@ -368,7 +371,7 @@ export function Home() {
       <InstagramFeed />
 
       {/* Client Intake */}
-      <section className="bg-white rounded-[3rem] py-20 px-6 md:px-12 text-center relative overflow-hidden shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
+      <section className="bg-white rounded-[1.75rem] sm:rounded-[3rem] py-14 sm:py-20 px-5 sm:px-6 md:px-12 text-center relative overflow-hidden shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
         <div className="absolute top-0 right-0 w-80 h-80 bg-[#FFF5EA] rounded-full blur-[100px]" />
 
         <motion.div variants={itemVariants} className="max-w-3xl mx-auto relative z-10">

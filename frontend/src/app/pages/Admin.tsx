@@ -145,11 +145,11 @@ function MetricCard({
   note: string;
 }) {
   return (
-    <div className="rounded-[2rem] bg-white p-6 shadow-[0_8px_32px_rgba(88,88,88,0.04)]">
+    <div className="rounded-[1.5rem] sm:rounded-[2rem] bg-white p-5 sm:p-6 shadow-[0_8px_32px_rgba(88,88,88,0.04)]">
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#7A7A7A]">{label}</p>
-          <p className="mt-3 text-3xl font-semibold text-[#585858]">{value}</p>
+          <p className="mt-3 text-2xl sm:text-3xl font-semibold text-[#585858]">{value}</p>
         </div>
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFF5EA]">
           <Icon className="h-6 w-6 text-[#E84C3D]" />
@@ -289,7 +289,7 @@ export function Admin() {
 
   return (
     <div className="relative space-y-10 pb-8">
-      <section className="relative overflow-hidden rounded-[3rem] bg-white px-8 py-10 shadow-[0_8px_32px_rgba(88,88,88,0.03)] md:px-12 md:py-14">
+      <section className="relative overflow-hidden rounded-[1.75rem] sm:rounded-[3rem] bg-white px-5 py-8 sm:px-8 sm:py-10 shadow-[0_8px_32px_rgba(88,88,88,0.03)] md:px-12 md:py-14">
         <div className="absolute -left-16 top-0 h-64 w-64 rounded-full bg-[#E5BE90]/20 blur-[100px]" />
         <div className="absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[#E84C3D]/12 blur-[120px]" />
 
@@ -299,7 +299,7 @@ export function Admin() {
               <Lock className="h-4 w-4" />
               Protected Admin Dashboard
             </div>
-            <h1 className="mt-6 text-4xl font-semibold leading-tight text-[#585858] md:text-6xl">
+            <h1 className="mt-6 text-3xl font-semibold leading-tight text-[#585858] sm:text-4xl md:text-6xl">
               Live booking analytics and client activity.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#7A7A7A] md:text-lg">
@@ -341,7 +341,7 @@ export function Admin() {
 
       <div className={`${isLocked ? "pointer-events-none select-none blur-sm" : ""} transition duration-200`}>
         {!dashboard ? (
-          <section className="rounded-[3rem] bg-[#FDF3E6] px-8 py-12 text-center shadow-inner md:px-12">
+          <section className="rounded-[1.75rem] sm:rounded-[3rem] bg-[#FDF3E6] px-5 py-10 sm:px-8 sm:py-12 text-center shadow-inner md:px-12">
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-white shadow-sm">
               <Lock className="h-10 w-10 text-[#E84C3D]" />
             </div>
@@ -359,7 +359,7 @@ export function Admin() {
             </section>
 
             <section className="grid grid-cols-1 gap-8 xl:grid-cols-[1.3fr_0.9fr]">
-              <div className="space-y-6 rounded-[3rem] bg-white p-8 shadow-[0_8px_32px_rgba(88,88,88,0.03)]">
+              <div className="space-y-6 rounded-[1.75rem] sm:rounded-[3rem] bg-white p-5 sm:p-8 shadow-[0_8px_32px_rgba(88,88,88,0.03)]">
                 <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#C56D45]">Demand</p>
@@ -370,10 +370,10 @@ export function Admin() {
 
                 <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
                   {dashboard.serviceDemand.map((service) => (
-                    <article key={service.id} className="rounded-[2rem] bg-[#FFF5EA] p-6">
+                    <article key={service.id} className="rounded-[1.5rem] sm:rounded-[2rem] bg-[#FFF5EA] p-5 sm:p-6">
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <h3 className="text-2xl font-semibold text-[#585858]">{service.title}</h3>
+                          <h3 className="text-xl sm:text-2xl font-semibold text-[#585858]">{service.title}</h3>
                           <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#7A7A7A]">
                             {service.sessionMode} • {service.durationMin} min • {formatCurrency(service.price)}
                           </p>
@@ -416,7 +416,7 @@ export function Admin() {
                 </div>
               </div>
 
-              <div className="space-y-6 rounded-[3rem] bg-white p-8 shadow-[0_8px_32px_rgba(88,88,88,0.03)]">
+              <div className="space-y-6 rounded-[1.75rem] sm:rounded-[3rem] bg-white p-5 sm:p-8 shadow-[0_8px_32px_rgba(88,88,88,0.03)]">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#C56D45]">Schedule</p>
                   <h2 className="mt-3 text-3xl font-semibold text-[#585858]">Next 14 days load</h2>
@@ -429,7 +429,7 @@ export function Admin() {
                     </div>
                   ) : (
                     dashboard.scheduleLoad.map((day) => (
-                      <article key={day.day} className="rounded-[2rem] bg-[#FFF5EA] p-5">
+                      <article key={day.day} className="rounded-[1.5rem] sm:rounded-[2rem] bg-[#FFF5EA] p-5">
                         <div className="flex items-start justify-between gap-3">
                           <div>
                             <p className="text-2xl font-semibold text-[#585858]">{formatScheduleDay(day.day)}</p>
@@ -464,7 +464,7 @@ export function Admin() {
             </section>
 
             <section className="grid grid-cols-1 gap-8 xl:grid-cols-2">
-              <div className="space-y-6 rounded-[3rem] bg-white p-8 shadow-[0_8px_32px_rgba(88,88,88,0.03)]">
+              <div className="space-y-6 rounded-[1.75rem] sm:rounded-[3rem] bg-white p-5 sm:p-8 shadow-[0_8px_32px_rgba(88,88,88,0.03)]">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#C56D45]">Upcoming</p>
                   <h2 className="mt-3 text-3xl font-semibold text-[#585858]">Live schedule queue</h2>
@@ -477,11 +477,11 @@ export function Admin() {
                     </div>
                   ) : (
                     dashboard.upcomingSchedule.map((booking) => (
-                      <article key={booking.id} className="rounded-[2rem] bg-[#FFF5EA] p-6">
+                      <article key={booking.id} className="rounded-[1.5rem] sm:rounded-[2rem] bg-[#FFF5EA] p-5 sm:p-6">
                         <div className="flex flex-wrap items-start justify-between gap-4">
                           <div>
-                            <p className="text-2xl font-semibold text-[#585858]">{booking.service.title}</p>
-                            <p className="mt-2 text-sm text-[#7A7A7A]">
+                            <p className="text-xl sm:text-2xl font-semibold text-[#585858]">{booking.service.title}</p>
+                            <p className="mt-2 break-all text-sm text-[#7A7A7A]">
                               {booking.clientName} • {booking.clientEmail}
                             </p>
                           </div>
@@ -523,7 +523,7 @@ export function Admin() {
                 </div>
               </div>
 
-              <div className="space-y-6 rounded-[3rem] bg-white p-8 shadow-[0_8px_32px_rgba(88,88,88,0.03)]">
+              <div className="space-y-6 rounded-[1.75rem] sm:rounded-[3rem] bg-white p-5 sm:p-8 shadow-[0_8px_32px_rgba(88,88,88,0.03)]">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#C56D45]">Bookings</p>
                   <h2 className="mt-3 text-3xl font-semibold text-[#585858]">Recent intake activity</h2>
@@ -536,10 +536,10 @@ export function Admin() {
                     </div>
                   ) : (
                     dashboard.recentBookings.map((booking) => (
-                      <article key={booking.id} className="rounded-[2rem] bg-[#FFF5EA] p-6">
+                      <article key={booking.id} className="rounded-[1.5rem] sm:rounded-[2rem] bg-[#FFF5EA] p-5 sm:p-6">
                         <div className="flex flex-wrap items-start justify-between gap-4">
                           <div>
-                            <p className="text-2xl font-semibold text-[#585858]">{booking.clientName}</p>
+                            <p className="text-xl sm:text-2xl font-semibold text-[#585858]">{booking.clientName}</p>
                             <p className="mt-2 text-sm text-[#7A7A7A]">
                               {booking.service.title} • Created {formatDateTime(booking.createdAt)}
                             </p>
@@ -553,7 +553,7 @@ export function Admin() {
                         <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
                           <div className="rounded-[1.5rem] bg-white px-4 py-4 text-sm">
                             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7A7A7A]">Contact</p>
-                            <p className="mt-2 text-[#585858]">{booking.clientEmail}</p>
+                            <p className="mt-2 break-all text-[#585858]">{booking.clientEmail}</p>
                             <p className="mt-1 text-[#7A7A7A]">{booking.clientPhone}</p>
                           </div>
                           <div className="rounded-[1.5rem] bg-white px-4 py-4 text-sm">
@@ -587,19 +587,19 @@ export function Admin() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[#585858]/35 px-6 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[#585858]/35 px-4 sm:px-6 backdrop-blur-md"
           >
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.96 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-md rounded-[2.5rem] bg-white p-8 shadow-[0_24px_80px_rgba(88,88,88,0.18)]"
+              className="w-full max-w-md rounded-[1.75rem] sm:rounded-[2.5rem] bg-white p-6 sm:p-8 shadow-[0_24px_80px_rgba(88,88,88,0.18)]"
             >
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FFF5EA]">
                 <ShieldCheck className="h-7 w-7 text-[#E84C3D]" />
               </div>
-              <h2 className="mt-6 text-3xl font-semibold text-[#585858]">Admin password required</h2>
+              <h2 className="mt-6 text-2xl sm:text-3xl font-semibold text-[#585858]">Admin password required</h2>
               <p className="mt-3 text-sm leading-relaxed text-[#7A7A7A]">
                 Enter the admin password to unlock live analytics, booking details, and schedule insights.
               </p>

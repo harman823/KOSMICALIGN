@@ -33,17 +33,17 @@ export function Layout() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden bg-[#FFF5EA]">
+    <div className="min-h-screen flex flex-col relative overflow-x-hidden bg-[#FFF5EA]">
       {/* Background soft ambient blobs */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#E5BE90] opacity-20 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-[#E84C3D] opacity-20 blur-[150px] pointer-events-none" />
 
       {/* Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
-        <nav className="max-w-7xl mx-auto glass-panel rounded-full px-6 py-3 flex items-center justify-between ghost-border shadow-[0_8px_32px_rgba(88,88,88,0.06)]">
+      <header className="fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:px-6 sm:py-4">
+        <nav className="max-w-7xl mx-auto glass-panel rounded-full px-4 py-3 sm:px-6 flex items-center justify-between ghost-border shadow-[0_8px_32px_rgba(88,88,88,0.06)]">
           <Link to="/" className="flex items-center gap-2 group">
-            <LogoMark />
-            <span className="font-serif text-xl font-semibold tracking-tight text-[#102A43]">KosmicAlign</span>
+            <LogoMark className="h-7 w-7 sm:h-8 sm:w-8" />
+            <span className="font-serif text-lg sm:text-xl font-semibold tracking-tight text-[#102A43]">KosmicAlign</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -74,8 +74,10 @@ export function Layout() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden text-[#585858]"
+            className="md:hidden text-[#585858] mobile-tap-highlight rounded-full p-2 -mr-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -89,15 +91,16 @@ export function Layout() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-[#FFF5EA]/95 backdrop-blur-md pt-28 px-6 pb-6 md:hidden flex flex-col"
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-40 bg-[#FFF5EA]/95 backdrop-blur-md pt-24 px-5 pb-6 md:hidden flex flex-col overflow-y-auto"
           >
-            <div className="flex flex-col gap-6 items-center">
+            <div className="flex min-h-full flex-col gap-5 items-center justify-center py-8">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`text-2xl font-serif font-semibold ${
+                  className={`text-2xl font-serif font-semibold mobile-tap-highlight rounded-full px-4 py-2 ${
                     location.pathname === link.path
                       ? "text-[#E84C3D]"
                       : "text-[#585858]"
@@ -119,7 +122,7 @@ export function Layout() {
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 pt-32 pb-24 px-6 relative z-10">
+      <main className="flex-1 pt-24 sm:pt-32 pb-14 sm:pb-24 px-4 sm:px-6 relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -135,14 +138,14 @@ export function Layout() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white py-16 px-6 relative z-10 mt-auto rounded-t-[3rem] shadow-[0_-8px_32px_rgba(88,88,88,0.02)]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+      <footer className="bg-white py-12 sm:py-16 px-4 sm:px-6 relative z-10 mt-auto rounded-t-[2rem] sm:rounded-t-[3rem] shadow-[0_-8px_32px_rgba(88,88,88,0.02)]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12">
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-6 group">
               <LogoMark className="transition-none group-hover:rotate-0" />
               <span className="font-serif text-2xl font-semibold text-[#102A43]">KosmicAlign</span>
             </Link>
-            <p className="text-[#7A7A7A] leading-relaxed max-w-md font-sans">
+            <p className="text-[#7A7A7A] leading-relaxed max-w-md font-sans text-sm sm:text-base">
               A holistic counselling and therapy space for structured healing, inner alignment, and support through life's tough moments.
             </p>
           </div>
@@ -161,23 +164,23 @@ export function Layout() {
           <div>
             <h4 className="font-serif text-[#585858] text-lg mb-6 font-semibold">Connect</h4>
             <ul className="space-y-4 text-[#7A7A7A]">
-              <li className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 text-[#E84C3D]" />
+              <li className="flex items-start gap-3">
+                <MapPin className="h-4 w-4 text-[#E84C3D] mt-1 shrink-0" />
                 Delhi, India & Worldwide
               </li>
               <li>
-                <a href="mailto:hello@kosmicalign.com" className="flex items-center gap-3 hover:text-[#E84C3D] transition-colors">
-                  <Mail className="h-4 w-4 text-[#E84C3D]" />
-                  hello@kosmicalign.com
+                <a href="mailto:hello@kosmicalign.com" className="flex items-start gap-3 hover:text-[#E84C3D] transition-colors break-all">
+                  <Mail className="h-4 w-4 text-[#E84C3D] mt-1 shrink-0" />
+                  <span>hello@kosmicalign.com</span>
                 </a>
               </li>
-              <li className="flex items-center gap-3">
-                <MessageCircle className="h-4 w-4 text-[#E84C3D]" />
+              <li className="flex items-start gap-3">
+                <MessageCircle className="h-4 w-4 text-[#E84C3D] mt-1 shrink-0" />
                 WhatsApp Consultation
               </li>
               <li>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-[#E84C3D] transition-colors">
-                  <Instagram className="h-4 w-4 text-[#E84C3D]" />
+                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-[#E84C3D] transition-colors">
+                  <Instagram className="h-4 w-4 text-[#E84C3D] mt-1 shrink-0" />
                   Instagram
                 </a>
               </li>

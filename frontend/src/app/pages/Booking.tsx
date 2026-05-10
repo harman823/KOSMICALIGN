@@ -53,6 +53,12 @@ export function Booking() {
       }
     }).catch((err) => {
       console.error("Failed to load services", err);
+      const params = new URLSearchParams(window.location.search);
+      const serviceId = params.get("service");
+      if (serviceId) {
+        setSelectedService(serviceId);
+        setStep(2);
+      }
       setServices(FALLBACK_SERVICES);
     }).finally(() => setLoadingServices(false));
   }, []);
@@ -155,16 +161,17 @@ export function Booking() {
       case 1:
         return (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-            <h3 className="text-3xl font-serif font-semibold text-[#585858] mb-8 text-center">Select a Service</h3>
+            <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#585858] mb-6 sm:mb-8 text-center">Select a Service</h3>
             {loadingServices ? (
               <div className="text-center text-[#7A7A7A] py-8">Loading services...</div>
             ) : (
               <div className="space-y-4">
                 {services.map((service) => (
-                  <div
+                  <button
+                    type="button"
                     key={service.id}
                     onClick={() => setSelectedService(service.id)}
-                    className={`p-6 rounded-[2rem] border-2 cursor-pointer transition-all flex flex-col md:flex-row gap-4 md:justify-between md:items-center ${
+                    className={`w-full p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border-2 cursor-pointer transition-all flex flex-col md:flex-row gap-4 md:justify-between md:items-center mobile-tap-highlight text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E84C3D]/30 ${
                       selectedService === service.id
                         ? "border-[#E84C3D] bg-[#FDEBD0]"
                         : "border-transparent bg-[#FFF5EA] hover:bg-[#FDF3E6]"
@@ -190,7 +197,7 @@ export function Booking() {
                         Registration ₹{REGISTRATION_PRICE}
                       </p>
                     </div>
-                  </div>
+                  </button>
                 ))}
                 <div className="rounded-[2rem] bg-white/80 p-5 text-sm text-[#7A7A7A] border border-[#E5BE90]/30">
                   Registration charges: ₹{REGISTRATION_PRICE} per head, one-time.
@@ -200,7 +207,7 @@ export function Booking() {
             <button
               onClick={handleNext}
               disabled={!selectedService}
-              className="mt-12 w-full py-4 bg-[#E84C3D] text-white rounded-full text-lg font-semibold disabled:opacity-50 hover:bg-[#C0392B] transition-all flex items-center justify-center gap-2"
+              className="mt-8 sm:mt-12 w-full py-3.5 sm:py-4 bg-[#E84C3D] text-white rounded-full text-base sm:text-lg font-semibold disabled:opacity-50 hover:bg-[#C0392B] transition-all flex items-center justify-center gap-2"
             >
               Continue <ChevronRight className="w-5 h-5" />
             </button>
@@ -209,16 +216,16 @@ export function Booking() {
       case 2:
         return (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-            <h3 className="text-3xl font-serif font-semibold text-[#585858] mb-8 text-center">Choose Date & Time</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-[#FFF5EA] p-4 md:p-8 rounded-[3rem]">
-              <div className="flex justify-center">
+            <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#585858] mb-6 sm:mb-8 text-center">Choose Date & Time</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 bg-[#FFF5EA] p-3 sm:p-4 md:p-8 rounded-[1.75rem] sm:rounded-[3rem]">
+              <div className="flex justify-center min-w-0">
                 <DayPicker
                   mode="single"
                   selected={selectedDate}
                   onSelect={setSelectedDate}
                   onMonthChange={setCurrentMonth}
                   disabled={[{ before: new Date(new Date().setHours(0,0,0,0)) }, ...unavailableDays]}
-                  className="bg-white p-4 rounded-3xl shadow-sm"
+                  className="bg-white p-3 sm:p-4 rounded-3xl shadow-sm max-w-full"
                   classNames={{
                     day_selected: "bg-[#E84C3D] text-white rounded-full",
                     day_today: "font-bold text-[#E84C3D]",
@@ -255,17 +262,17 @@ export function Booking() {
                 )}
               </div>
             </div>
-            <div className="flex gap-4 mt-12">
+            <div className="flex gap-3 sm:gap-4 mt-8 sm:mt-12">
               <button
                 onClick={handlePrev}
-                className="w-1/3 py-4 bg-white border border-[#E5BE90]/50 text-[#7A7A7A] rounded-full text-lg font-medium hover:bg-[#FFF5EA] transition-all"
+                className="w-1/3 py-3.5 sm:py-4 bg-white border border-[#E5BE90]/50 text-[#7A7A7A] rounded-full text-base sm:text-lg font-medium hover:bg-[#FFF5EA] transition-all"
               >
                 Back
               </button>
               <button
                 onClick={handleNext}
                 disabled={!selectedDate || !selectedTime}
-                className="w-2/3 py-4 bg-[#E84C3D] text-white rounded-full text-lg font-semibold disabled:opacity-50 hover:bg-[#C0392B] transition-all flex items-center justify-center gap-2"
+                className="w-2/3 py-3.5 sm:py-4 bg-[#E84C3D] text-white rounded-full text-base sm:text-lg font-semibold disabled:opacity-50 hover:bg-[#C0392B] transition-all flex items-center justify-center gap-2"
               >
                 Continue <ChevronRight className="w-5 h-5" />
               </button>
@@ -275,7 +282,7 @@ export function Booking() {
       case 3:
         return (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-            <h3 className="text-3xl font-serif font-semibold text-[#585858] mb-8 text-center">Your Details</h3>
+            <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#585858] mb-6 sm:mb-8 text-center">Your Details</h3>
             <div className="space-y-6 max-w-lg mx-auto">
               <div>
                 <label className="block text-sm font-medium text-[#585858] mb-2">Full Name</label>
@@ -311,10 +318,10 @@ export function Booking() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#585858] mb-2">Session Type</label>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <button
                     onClick={() => setFormData({ ...formData, location: "online" })}
-                    className={`py-4 rounded-2xl flex items-center justify-center gap-2 transition-all ${
+                    className={`py-4 px-3 rounded-2xl flex items-center justify-center gap-2 transition-all ${
                       formData.location === "online" ? "bg-[#E84C3D] text-white" : "bg-[#FFF5EA] text-[#7A7A7A]"
                     }`}
                   >
@@ -322,7 +329,7 @@ export function Booking() {
                   </button>
                   <button
                     onClick={() => setFormData({ ...formData, location: "inperson" })}
-                    className={`py-4 rounded-2xl flex items-center justify-center gap-2 transition-all ${
+                    className={`py-4 px-3 rounded-2xl flex items-center justify-center gap-2 transition-all ${
                       formData.location === "inperson" ? "bg-[#E84C3D] text-white" : "bg-[#FFF5EA] text-[#7A7A7A]"
                     }`}
                   >
@@ -334,17 +341,17 @@ export function Booking() {
                 Registration charges: ₹{REGISTRATION_PRICE} per head, one-time. Payment collection is currently offline.
               </div>
             </div>
-            <div className="flex gap-4 mt-12 max-w-lg mx-auto">
+            <div className="flex gap-3 sm:gap-4 mt-8 sm:mt-12 max-w-lg mx-auto">
               <button
                 onClick={handlePrev}
-                className="w-1/3 py-4 bg-white border border-[#E5BE90]/50 text-[#7A7A7A] rounded-full text-lg font-medium hover:bg-[#FFF5EA] transition-all"
+                className="w-1/3 py-3.5 sm:py-4 bg-white border border-[#E5BE90]/50 text-[#7A7A7A] rounded-full text-base sm:text-lg font-medium hover:bg-[#FFF5EA] transition-all"
               >
                 Back
               </button>
               <button
                 onClick={handleCheckout}
                 disabled={!formData.name || !formData.email || !formData.phone || isBooking}
-                className="w-2/3 py-4 bg-[#E84C3D] text-white rounded-full text-lg font-semibold hover:bg-[#C0392B] disabled:opacity-50 transition-all flex items-center justify-center gap-2"
+                className="w-2/3 py-3.5 sm:py-4 bg-[#E84C3D] text-white rounded-full text-base sm:text-lg font-semibold hover:bg-[#C0392B] disabled:opacity-50 transition-all flex items-center justify-center gap-2"
               >
                 {isBooking ? "Processing..." : "Submit Request"} <ChevronRight className="w-5 h-5" />
               </button>
@@ -358,11 +365,11 @@ export function Booking() {
               <CheckCircle className="w-12 h-12 text-[#E84C3D] absolute z-10" />
               <div className="absolute inset-0 bg-[#FDEBD0] animate-ping rounded-full opacity-50" />
             </div>
-            <h3 className="text-4xl font-serif font-semibold text-[#585858] mb-4">Session Request Received</h3>
-            <p className="text-[#7A7A7A] text-lg max-w-md mx-auto mb-8">
+            <h3 className="text-3xl sm:text-4xl font-serif font-semibold text-[#585858] mb-4">Session Request Received</h3>
+            <p className="text-[#7A7A7A] text-base sm:text-lg max-w-md mx-auto mb-8">
               Thank you. Your selected session details have been captured, and the team will coordinate confirmation and payment offline.
             </p>
-            <div className="bg-[#FFF5EA] p-8 rounded-[2rem] max-w-md mx-auto text-left mb-12">
+            <div className="bg-[#FFF5EA] p-5 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] max-w-md mx-auto text-left mb-12">
               <h4 className="font-serif font-semibold text-[#585858] text-xl mb-4 border-b border-[#E5BE90]/30 pb-4">Booking Details</h4>
               <div className="space-y-3 text-sm text-[#7A7A7A]">
                 <div className="flex justify-between"><span className="font-medium">Service:</span> <span>{selectedServiceData?.title}</span></div>
@@ -381,15 +388,15 @@ export function Booking() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto pt-20 pb-32">
-      <div className="text-center mb-16">
-        <h1 className="text-5xl font-serif font-semibold text-[#585858] mb-4">Book Your Session</h1>
-        <p className="text-lg text-[#7A7A7A]">Secure your spot for clarity, healing, and alignment.</p>
+    <div className="max-w-4xl mx-auto pt-10 sm:pt-20 pb-20 sm:pb-32">
+      <div className="text-center mb-10 sm:mb-16">
+        <h1 className="text-4xl sm:text-5xl font-serif font-semibold text-[#585858] mb-4">Book Your Session</h1>
+        <p className="text-base sm:text-lg text-[#7A7A7A]">Secure your spot for clarity, healing, and alignment.</p>
       </div>
 
-      <div className="bg-white p-6 md:p-16 rounded-[3rem] shadow-[0_8px_32px_rgba(88,88,88,0.02)] min-h-[600px] relative overflow-hidden">
+      <div className="bg-white p-4 sm:p-6 md:p-16 rounded-[1.75rem] sm:rounded-[3rem] shadow-[0_8px_32px_rgba(88,88,88,0.02)] min-h-[520px] sm:min-h-[600px] relative overflow-hidden">
         {step < 4 && (
-          <div className="mb-16">
+          <div className="mb-10 sm:mb-16">
             <div className="flex items-center justify-between mb-4">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="flex flex-col items-center relative z-10 w-1/3">
