@@ -24,7 +24,18 @@ const fallingPetals = [
 ];
 
 const petalLoopTimes = [0, 0.24, 0.58, 0.76, 0.86, 0.88, 1];
-const bigPetalLoopTimes = [0, 0.28, 0.6, 0.78, 0.88, 0.9, 1];
+const bigPetalLoopTimes = [0, 0.18, 0.32, 0.54, 0.76, 0.86, 0.92, 0.95, 1];
+
+const getBigPetalFall = (clusterIndex: number, pointIndex: number) => {
+  const direction = (clusterIndex + pointIndex) % 2 === 0 ? 1 : -1;
+  const drift = direction * (18 + pointIndex * 3 + clusterIndex * 2);
+  const loosen = direction * (2 + (pointIndex % 3));
+
+  return {
+    x: [0, loosen, drift * -0.15, drift * 0.35, drift, drift * 1.18, drift * 1.18, 0, 0],
+    y: [0, 2, 18, 74, 154, 238, 238, 0, 0],
+  };
+};
 
 function HeroTreeIllustration() {
   const berryClusters = [
@@ -40,18 +51,12 @@ function HeroTreeIllustration() {
       <motion.svg
         viewBox="0 0 1240 700"
         preserveAspectRatio="xMidYMid slice"
-        className="absolute inset-y-0 right-[-18%] h-full w-[128%] min-w-[720px] opacity-85 lg:right-[-7%] lg:w-[110%] lg:min-w-[880px] lg:opacity-95"
+        className="absolute inset-y-0 right-[-28%] h-full w-[150%] min-w-[900px] opacity-80 will-change-transform lg:right-[-18%] lg:w-[128%] lg:min-w-[1180px] lg:opacity-95"
         initial={{ opacity: 0, x: 42, y: 10 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
       >
-        <defs>
-          <filter id="branch-shadow" x="-15%" y="-20%" width="130%" height="150%">
-            <feDropShadow dx="0" dy="14" stdDeviation="11" floodColor="#5B2C17" floodOpacity="0.11" />
-          </filter>
-        </defs>
-
-        <g filter="url(#branch-shadow)" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <g fill="none" strokeLinecap="round" strokeLinejoin="round">
           <path d="M-78 496 C70 476 172 438 280 460 C390 484 456 527 574 492 C684 459 772 392 884 410 C1006 430 1096 388 1288 330" stroke="#5A321F" strokeWidth="16" />
           <path d="M-60 501 C82 488 172 450 278 471 C392 494 464 530 574 501 C690 472 770 414 886 422 C1006 432 1102 401 1284 348" stroke="#7B4A2A" strokeWidth="7" opacity="0.7" />
 
@@ -82,31 +87,36 @@ function HeroTreeIllustration() {
 
         {berryClusters.map((cluster, clusterIndex) => (
           <g key={clusterIndex}>
-            {cluster.points.map(([x, y], pointIndex) => (
-              <motion.circle
-                key={`${clusterIndex}-${pointIndex}`}
-                cx={cluster.x + x}
-                cy={cluster.y + y}
-                r={pointIndex % 3 === 0 ? 9 : 7}
-                fill={pointIndex % 2 === 0 ? "#D60E5B" : "#F04A83"}
-                stroke="#FFE3EC"
-                strokeWidth="2"
-                animate={{
-                  x: [0, 6 - pointIndex * 2, 18 - pointIndex * 3, -6 + pointIndex, -6 + pointIndex, 0, 0],
-                  y: [0, 16, 82, 142, 142, 0, 0],
-                  opacity: [1, 1, 0.62, 0, 0, 0, 1],
-                  scale: [1, 1, 0.93, 0.78, 0.78, 0.78, 1],
-                }}
-                transition={{
-                  duration: 8.2 + clusterIndex * 0.4 + pointIndex * 0.16,
-                  delay: clusterIndex * 0.34 + pointIndex * 0.18,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "linear",
-                  times: bigPetalLoopTimes,
-                }}
-              />
-            ))}
+            {cluster.points.map(([x, y], pointIndex) => {
+              const fall = getBigPetalFall(clusterIndex, pointIndex);
+
+              return (
+                <motion.circle
+                  key={`${clusterIndex}-${pointIndex}`}
+                  cx={cluster.x + x}
+                  cy={cluster.y + y}
+                  r={pointIndex % 3 === 0 ? 9 : 7}
+                  fill={pointIndex % 2 === 0 ? "#D60E5B" : "#F04A83"}
+                  stroke="#FFE3EC"
+                  strokeWidth="2"
+                  style={{ willChange: "transform, opacity" }}
+                  animate={{
+                    x: fall.x,
+                    y: fall.y,
+                    opacity: [1, 1, 0.96, 0.78, 0.38, 0, 0, 0, 1],
+                    scale: [1, 1.02, 1, 0.94, 0.84, 0.72, 0.72, 0.72, 1],
+                  }}
+                  transition={{
+                    duration: 9.8 + clusterIndex * 0.45 + pointIndex * 0.22,
+                    delay: clusterIndex * 0.48 + pointIndex * 0.26,
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    ease: "linear",
+                    times: bigPetalLoopTimes,
+                  }}
+                />
+              );
+            })}
           </g>
         ))}
       </motion.svg>
@@ -114,7 +124,7 @@ function HeroTreeIllustration() {
       {fallingPetals.map((petal, index) => (
         <motion.span
           key={index}
-          className="absolute hidden rounded-full bg-[#D60E5B] sm:block"
+          className="absolute hidden rounded-full bg-[#D60E5B] will-change-transform sm:block"
           style={{ left: petal.x, top: petal.y, width: petal.size, height: petal.size }}
           animate={{
             x: [0, petal.drift * 0.35, petal.drift, petal.drift * -0.35, petal.drift * -0.35, 0, 0],
@@ -133,8 +143,8 @@ function HeroTreeIllustration() {
         />
       ))}
 
-      <div className="absolute inset-y-0 left-0 w-full bg-[#FFF3E4]/80 sm:w-[70%] lg:w-[58%]" />
-      <div className="absolute inset-x-0 bottom-0 h-28 sm:h-32 bg-[#FFF3E4]/70" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#FFF3E4]/95 via-[#FFF3E4]/72 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#FFF5EA] to-transparent sm:h-36" />
     </div>
   );
 }
@@ -231,7 +241,7 @@ export function Home() {
   return (
     <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-14 sm:space-y-24 lg:space-y-32">
       {/* Hero Section */}
-      <section className="relative flex items-center overflow-hidden rounded-[1.25rem] bg-[#FFF3E4] px-5 py-9 shadow-[0_8px_32px_rgba(88,88,88,0.025)] sm:mt-4 sm:min-h-[calc(100vh-2rem)] sm:rounded-[2.5rem] sm:bg-transparent sm:px-10 sm:py-20 sm:shadow-none md:px-20 md:py-28">
+      <section className="relative left-1/2 flex w-screen -translate-x-1/2 items-center overflow-hidden bg-[#FFF3E4] px-9 py-10 sm:min-h-[calc(100vh-8rem)] sm:px-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] sm:py-20 md:py-28">
         <HeroTreeIllustration />
 
         <div className="relative z-10 max-w-[46rem]">
