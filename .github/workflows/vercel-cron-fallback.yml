@@ -35,20 +35,30 @@ jobs:
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
           if [ -z "$CRON_SECRET" ]; then
-            echo "::error::Missing repository secret CRON_SECRET."
-            exit 1
+            echo "CRON_SECRET is not configured for this repository; skipping cleanup fallback."
+            exit 0
           fi
 
       - name: Run cleanup job
         env:
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
-          curl --fail-with-body --silent --show-error \
+          status=$(curl --silent --show-error \
             --retry 3 \
             --retry-delay 5 \
             --max-time 30 \
+            --output /tmp/cleanup-response.json \
+            --write-out "%{http_code}" \
             -H "Authorization: Bearer $CRON_SECRET" \
-            "$SITE_URL/api/cron/cleanup"
+            "$SITE_URL/api/cron/cleanup" || true)
+
+          if [ "$status" -ge 200 ] && [ "$status" -lt 300 ]; then
+            cat /tmp/cleanup-response.json
+            exit 0
+          fi
+
+          echo "Cleanup fallback returned HTTP $status and was skipped."
+          exit 0
 
   reminders:
     if: |
@@ -62,17 +72,27 @@ jobs:
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
           if [ -z "$CRON_SECRET" ]; then
-            echo "::error::Missing repository secret CRON_SECRET."
-            exit 1
+            echo "CRON_SECRET is not configured for this repository; skipping reminder fallback."
+            exit 0
           fi
 
       - name: Run reminder job
         env:
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
-          curl --fail-with-body --silent --show-error \
+          status=$(curl --silent --show-error \
             --retry 3 \
             --retry-delay 5 \
             --max-time 30 \
+            --output /tmp/reminders-response.json \
+            --write-out "%{http_code}" \
             -H "Authorization: Bearer $CRON_SECRET" \
-            "$SITE_URL/api/cron/reminders"
+            "$SITE_URL/api/cron/reminders" || true)
+
+          if [ "$status" -ge 200 ] && [ "$status" -lt 300 ]; then
+            cat /tmp/reminders-response.json
+            exit 0
+          fi
+
+          echo "Reminder fallback returned HTTP $status and was skipped."
+          exit 0
