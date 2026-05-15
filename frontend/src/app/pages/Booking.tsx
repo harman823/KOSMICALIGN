@@ -388,13 +388,13 @@ export function Booking() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto pt-10 sm:pt-20 pb-20 sm:pb-32">
+    <div className="max-w-4xl mx-auto pt-8 sm:pt-16 pb-8 sm:pb-12">
       <div className="text-center mb-10 sm:mb-16">
         <h1 className="text-4xl sm:text-5xl font-serif font-semibold text-[#585858] mb-4">Book Your Session</h1>
         <p className="text-base sm:text-lg text-[#7A7A7A]">Secure your spot for clarity, healing, and alignment.</p>
       </div>
 
-      <div className="bg-white p-4 sm:p-6 md:p-16 rounded-[1.75rem] sm:rounded-[3rem] shadow-[0_8px_32px_rgba(88,88,88,0.02)] min-h-[520px] sm:min-h-[600px] relative overflow-hidden">
+      <div className="bg-white/90 p-4 sm:p-6 md:p-14 rounded-[1.75rem] sm:rounded-[2.5rem] shadow-[0_8px_32px_rgba(88,88,88,0.02)] min-h-[520px] sm:min-h-[600px] relative overflow-hidden">
         {step < 4 && (
           <div className="mb-10 sm:mb-16">
             <div className="flex items-center justify-between mb-4">

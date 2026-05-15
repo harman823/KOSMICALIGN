@@ -19,7 +19,7 @@ export function Contact() {
   };
 
   return (
-    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-7xl mx-auto space-y-16 sm:space-y-24 pt-10 sm:pt-20">
+    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-7xl mx-auto space-y-12 sm:space-y-16 pt-8 sm:pt-16 pb-4">
       <section className="text-center max-w-3xl mx-auto">
         <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md text-[#7A7A7A] font-medium text-sm mb-8 shadow-sm">
           <MessageCircle className="w-4 h-4 text-[#E5BE90]" />
@@ -37,7 +37,7 @@ export function Contact() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-[600px] h-[90vw] max-h-[600px] bg-[#E5BE90]/20 rounded-full blur-[100px] pointer-events-none" />
         
         <motion.div variants={itemVariants} className="space-y-12 relative z-10">
-          <div className="bg-white rounded-[1.75rem] sm:rounded-[3rem] p-6 sm:p-10 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
+          <div className="bg-white/90 rounded-[1.75rem] sm:rounded-[2.5rem] p-6 sm:p-10 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
             <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#585858] mb-8">Request a Callback</h3>
             <form className="space-y-6">
               <div>

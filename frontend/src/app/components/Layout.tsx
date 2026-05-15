@@ -30,11 +30,32 @@ export function Layout() {
     { name: "Contact", path: "/contact" },
   ];
 
+  React.useEffect(() => {
+    const headings = Array.from(
+      document.querySelectorAll<HTMLElement>("main section h1, main section h2, main > div > div > h1"),
+    );
+
+    headings.forEach((heading) => heading.classList.add("section-marker-heading"));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visited");
+          }
+        });
+      },
+      { rootMargin: "0px 0px -35% 0px", threshold: 0.35 },
+    );
+
+    headings.forEach((heading) => observer.observe(heading));
+
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden md:overflow-x-hidden md:overflow-y-visible bg-[#FFF5EA]">
-      {/* Background soft ambient blobs */}
-      <div className="absolute top-[-10%] left-[-10%] hidden w-[50%] h-[50%] rounded-full bg-[#E5BE90] opacity-20 blur-[120px] pointer-events-none md:block" />
-      <div className="absolute bottom-[-10%] right-[-10%] hidden w-[60%] h-[60%] rounded-full bg-[#E84C3D] opacity-20 blur-[150px] pointer-events-none md:block" />
+      <div className="kosmic-gradient" aria-hidden="true" />
 
       {/* Navigation */}
       <header className="fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:px-6 sm:py-4">
@@ -120,7 +141,7 @@ export function Layout() {
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 pt-[5.5rem] sm:pt-32 pb-10 sm:pb-24 px-4 sm:px-6 relative z-10">
+      <main className="flex-1 pt-[5.5rem] sm:pt-28 pb-6 sm:pb-12 px-4 sm:px-6 relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -136,8 +157,8 @@ export function Layout() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white py-8 sm:py-16 px-5 sm:px-6 relative z-10 mt-auto rounded-t-[1.5rem] sm:rounded-t-[3rem] shadow-[0_-8px_32px_rgba(88,88,88,0.02)]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-7 md:gap-12">
+      <footer className="bg-white/88 backdrop-blur-sm py-7 sm:py-12 px-5 sm:px-6 relative z-10 mt-auto rounded-t-[1.5rem] sm:rounded-t-[2rem] shadow-[0_-8px_32px_rgba(88,88,88,0.02)]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-7 md:gap-10">
           <div className="col-span-1 md:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4 sm:mb-6 group">
               <LogoMark className="h-11 w-11 transition-none group-hover:rotate-0" />
@@ -185,7 +206,7 @@ export function Layout() {
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-8 sm:mt-16 pt-6 sm:pt-8 border-t border-[#7A7A7A]/10 flex flex-col md:flex-row items-center justify-between text-sm text-[#7A7A7A]">
+        <div className="max-w-7xl mx-auto mt-8 sm:mt-10 pt-6 border-t border-[#7A7A7A]/10 flex flex-col md:flex-row items-center justify-between text-sm text-[#7A7A7A]">
           <p>© 2026 KosmicAlign. All rights reserved.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <Link to="#" className="hover:text-[#E84C3D]">Privacy</Link>

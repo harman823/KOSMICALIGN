@@ -39,7 +39,7 @@ export function Services() {
   };
 
   return (
-    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-7xl mx-auto space-y-16 sm:space-y-24 pt-10 sm:pt-20">
+    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-7xl mx-auto space-y-12 sm:space-y-16 pt-8 sm:pt-16 pb-4">
       <section className="text-center max-w-3xl mx-auto">
         <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md text-[#7A7A7A] font-medium text-sm mb-8 shadow-sm">
           <Sparkles className="w-4 h-4 text-[#E5BE90]" />
@@ -53,7 +53,7 @@ export function Services() {
         </motion.p>
       </section>
 
-      <motion.section variants={itemVariants} className="bg-white rounded-[1.5rem] sm:rounded-[2rem] border border-[#E5BE90]/30 p-5 sm:p-6 md:p-8 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
+      <motion.section variants={itemVariants} className="bg-white/90 rounded-[1.5rem] sm:rounded-[2rem] border border-[#E5BE90]/30 p-5 sm:p-6 md:p-8 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
         <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between text-[#585858]">
           <div className="flex items-start gap-3">
             <Info className="w-5 h-5 text-[#E84C3D] mt-1 shrink-0" />
@@ -79,7 +79,7 @@ export function Services() {
               key={service.id || idx}
               variants={itemVariants}
               whileTap={{ scale: 0.99 }}
-              className={`${aesthetic.bg} p-6 sm:p-10 md:p-12 rounded-[1.75rem] sm:rounded-[3rem] border border-black/5 shadow-[0_8px_32px_rgba(88,88,88,0.02)] flex flex-col h-full hover:shadow-[0_12px_48px_rgba(88,88,88,0.05)] transition-shadow duration-500`}
+              className={`${aesthetic.bg} p-6 sm:p-10 md:p-12 rounded-[1.75rem] sm:rounded-[2.5rem] border border-black/5 shadow-[0_8px_32px_rgba(88,88,88,0.02)] flex flex-col h-full hover:shadow-[0_12px_48px_rgba(88,88,88,0.05)] transition-shadow duration-500`}
             >
               <div className="flex items-start justify-between gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-sm shrink-0">

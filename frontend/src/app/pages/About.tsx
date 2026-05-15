@@ -14,8 +14,8 @@ export function About() {
   };
 
   return (
-    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-20 sm:space-y-24 lg:space-y-32">
-      <section className="text-center pt-10 sm:pt-20 pb-10 sm:pb-16">
+    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-12 sm:space-y-16 lg:space-y-20 pb-4">
+      <section className="text-center pt-8 sm:pt-16 pb-6 sm:pb-10">
         <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md text-[#7A7A7A] font-medium text-sm mb-8 shadow-sm">
           <Star className="w-4 h-4 text-[#E5BE90]" />
           About Me
@@ -55,7 +55,7 @@ export function About() {
         </motion.div>
       </section>
 
-      <section className="bg-white rounded-[1.75rem] sm:rounded-[3rem] p-6 sm:p-12 md:p-24 shadow-[0_8px_32px_rgba(88,88,88,0.02)] max-w-7xl mx-auto relative overflow-hidden">
+      <section className="bg-white/90 rounded-[1.75rem] sm:rounded-[2.5rem] p-6 sm:p-10 md:p-16 shadow-[0_8px_32px_rgba(88,88,88,0.02)] max-w-7xl mx-auto relative overflow-hidden">
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#E5BE90]/20 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 relative z-10">
@@ -82,7 +82,7 @@ export function About() {
       </section>
 
       <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
-        <motion.div variants={itemVariants} className="bg-[#FDF3E6] rounded-[1.75rem] sm:rounded-[3rem] p-6 sm:p-10 md:p-12">
+        <motion.div variants={itemVariants} className="bg-[#FDF3E6]/90 rounded-[1.75rem] sm:rounded-[2.5rem] p-6 sm:p-10 md:p-12">
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-8 shadow-sm">
             <Sparkles className="w-8 h-8 text-[#E84C3D]" />
           </div>
@@ -92,7 +92,7 @@ export function About() {
           </p>
         </motion.div>
 
-        <motion.div variants={itemVariants} className="bg-[#FFF5EA] rounded-[1.75rem] sm:rounded-[3rem] p-6 sm:p-10 md:p-12">
+        <motion.div variants={itemVariants} className="bg-[#FFF5EA]/90 rounded-[1.75rem] sm:rounded-[2.5rem] p-6 sm:p-10 md:p-12">
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-8 shadow-sm">
             <Heart className="w-8 h-8 text-[#E5BE90]" />
           </div>

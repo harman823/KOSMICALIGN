@@ -239,7 +239,7 @@ export function Home() {
   ];
 
   return (
-    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-14 sm:space-y-24 lg:space-y-32">
+    <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-12 sm:space-y-20 lg:space-y-24">
       {/* Hero Section */}
       <section className="relative left-1/2 flex w-screen -translate-x-1/2 items-center overflow-hidden bg-[#FFF3E4] px-9 py-10 sm:min-h-[calc(100vh-8rem)] sm:px-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] sm:py-20 md:py-28">
         <HeroTreeIllustration />
@@ -312,7 +312,7 @@ export function Home() {
       </section>
 
       {/* Tools Used */}
-      <section className="max-w-5xl mx-auto bg-[#FDF3E6] rounded-[1.75rem] sm:rounded-[3rem] p-5 sm:p-12 md:p-20 text-center shadow-inner">
+      <section className="max-w-5xl mx-auto bg-[#FDF3E6]/90 rounded-[1.75rem] sm:rounded-[2.5rem] p-5 sm:p-10 md:p-16 text-center shadow-inner">
         <motion.h2 variants={itemVariants} className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-[#585858] mb-8">
           Therapeutic Tools & Techniques
         </motion.h2>
@@ -334,7 +334,7 @@ export function Home() {
       </section>
 
       {/* How it Works */}
-      <section className="bg-white rounded-[1.75rem] sm:rounded-[3rem] p-6 sm:p-12 md:p-24 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
+      <section className="bg-white/90 rounded-[1.75rem] sm:rounded-[2.5rem] p-6 sm:p-10 md:p-16 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl font-serif font-semibold text-[#585858] mb-4">How It Works</h2>
@@ -360,7 +360,7 @@ export function Home() {
       </section>
 
       {/* In Person vs Online */}
-      <section className="bg-white rounded-[1.75rem] sm:rounded-[3rem] p-6 sm:p-10 md:p-20 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
+      <section className="bg-white/90 rounded-[1.75rem] sm:rounded-[2.5rem] p-6 sm:p-10 md:p-16 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
         <motion.div variants={itemVariants} className="max-w-4xl mx-auto space-y-8 text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold text-[#585858]">
             Find Guidance Wherever You Are
@@ -396,7 +396,7 @@ export function Home() {
       <InstagramFeed />
 
       {/* Client Intake */}
-      <section className="bg-white rounded-[1.75rem] sm:rounded-[3rem] py-14 sm:py-20 px-5 sm:px-6 md:px-12 text-center relative overflow-hidden shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
+      <section className="bg-white/90 rounded-[1.75rem] sm:rounded-[2.5rem] py-12 sm:py-16 px-5 sm:px-6 md:px-12 text-center relative overflow-hidden shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
         <div className="absolute top-0 right-0 w-80 h-80 bg-[#FFF5EA] rounded-full blur-[100px]" />
 
         <motion.div variants={itemVariants} className="max-w-3xl mx-auto relative z-10">
