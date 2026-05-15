@@ -249,7 +249,7 @@ export function Home() {
             Holistic Guidance Counsellor
           </motion.p>
 
-          <motion.h1 variants={itemVariants} className="text-[2rem] sm:text-5xl md:text-6xl font-serif font-semibold text-[#171717] leading-[1.08] mb-4 sm:mb-7">
+          <motion.h1 variants={itemVariants} className="no-section-marker text-[2rem] sm:text-5xl md:text-6xl font-serif font-semibold text-[#171717] leading-[1.08] mb-4 sm:mb-7">
             Here to help you navigate life's tough moments
           </motion.h1>
 

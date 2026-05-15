@@ -35,7 +35,9 @@ export function Layout() {
       document.querySelectorAll<HTMLElement>("main section h1, main section h2, main > div > div > h1"),
     );
 
-    headings.forEach((heading) => heading.classList.add("section-marker-heading"));
+    headings
+      .filter((heading) => !heading.classList.contains("no-section-marker"))
+      .forEach((heading) => heading.classList.add("section-marker-heading"));
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -48,7 +50,9 @@ export function Layout() {
       { rootMargin: "0px 0px -35% 0px", threshold: 0.35 },
     );
 
-    headings.forEach((heading) => observer.observe(heading));
+    headings
+      .filter((heading) => !heading.classList.contains("no-section-marker"))
+      .forEach((heading) => observer.observe(heading));
 
     return () => observer.disconnect();
   }, [location.pathname]);
