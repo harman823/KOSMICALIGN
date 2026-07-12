@@ -4,7 +4,8 @@ import { env } from './config/env';
 
 const allowedOrigins = env.FRONTEND_URL
   ? env.FRONTEND_URL.split(',').map((origin) => origin.trim()).filter(Boolean)
-  : null;
+  : [];
+allowedOrigins.push('http://localhost:5173');
 const apiBasePaths = ['/api/v1', '/v1'];
 
 const app = express();
