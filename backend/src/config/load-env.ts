@@ -5,14 +5,15 @@ import dotenv from 'dotenv';
 let loaded = false;
 
 const getCandidateEnvPaths = () => {
-  const projectRoot = process.cwd();
+  const cwd = process.cwd();
   const backendRoot = path.resolve(__dirname, '..', '..');
+  const projectRoot = path.resolve(backendRoot, '..');
 
   return [
+    path.resolve(cwd, '.env.local'),
+    path.resolve(cwd, '.env'),
     path.resolve(projectRoot, '.env.local'),
     path.resolve(projectRoot, '.env'),
-    path.resolve(projectRoot, 'backend', '.env.local'),
-    path.resolve(projectRoot, 'backend', '.env'),
     path.resolve(backendRoot, '.env.local'),
     path.resolve(backendRoot, '.env'),
   ];
