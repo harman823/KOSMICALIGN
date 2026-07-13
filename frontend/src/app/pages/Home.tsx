@@ -85,8 +85,8 @@ function HeroSlideshow() {
             Holistic Guidance Counsellor
           </motion.p>
           <motion.h1 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="no-section-marker mb-5 max-w-3xl font-serif text-[2.55rem] font-semibold leading-[1.08] tracking-[-0.025em] text-white drop-shadow-lg sm:text-6xl lg:text-7xl">
-            Here to help you navigate life's tough moments
-          </motion.h1>
+“Life is not about Perfection.
+It is about alignment and balance.          </motion.h1>
           <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="mb-4 max-w-2xl text-[0.95rem] leading-relaxed text-white/80 drop-shadow-md sm:text-lg">
             A safe space to release repetitive patterns, inherited fears, and anxiety - and gently return to the most aligned version of yourself.
           </motion.p>
