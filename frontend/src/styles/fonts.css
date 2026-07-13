@@ -1,1 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;500;600;700&display=swap');
+
+@font-face {
+  font-family: "Flaviotte";
+  src: url("/fonts/Flaviotte.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.font-flaviotte {
+  font-family: "Flaviotte", "Noto Serif Malayalam", Georgia, serif;
+}

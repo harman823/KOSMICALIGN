@@ -2,6 +2,17 @@ import { SessionMode, type Prisma } from '@prisma/client';
 
 export const defaultServices: Prisma.ServiceCreateInput[] = [
   {
+    slug: 'clarity-call',
+    title: 'Clarity Call',
+    description: 'A focused one-on-one conversation to untangle what feels unclear, identify the next helpful step, and leave with a calmer sense of direction.',
+    imageUrl: '/img/services/clarity-call.png',
+    durationMin: 30,
+    price: 99,
+    sessionMode: SessionMode.ONLINE,
+    idealOutcomes: ['Clarity', 'Direction', 'A Practical Next Step'],
+    isActive: true,
+  },
+  {
     slug: 'individual-therapy',
     title: 'Individual Therapy Sessions',
     description: 'One-on-one customised therapy sessions for personal healing, emotional clarity, and alignment of mind, body, and spirit.',
@@ -34,7 +45,7 @@ export const defaultServices: Prisma.ServiceCreateInput[] = [
   {
     slug: 'relationship-counselling',
     title: 'Relationship Counselling',
-    description: 'Guidance for communication, emotional patterns, attachment wounds, and healthier connection in important relationships.',
+    description: 'Guidance for communication, attachment patterns, narcissistic abuse healing and healthier connections.',
     durationMin: 90,
     price: 3100,
     sessionMode: SessionMode.ONLINE,

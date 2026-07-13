@@ -1,151 +1,130 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router";
-import { ArrowRight, Star, Heart, Sun, MapPin, Globe, Sparkles, User, Calendar, MessageCircle, ClipboardList } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Star, Heart, Sun, MapPin, Globe, Sparkles, User, Calendar, MessageCircle, ClipboardList } from "lucide-react";
 import { fetchServices } from "../../lib/api";
 import { FALLBACK_SERVICES, normalizeServicesResponse } from "../../lib/services";
-import { InstagramFeed } from "../components/InstagramFeed";
 
 const GOOGLE_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSc0-_Q7dRxEdjSYo0Q_39y3RbKJk3lzHgTwh5Fvh3RVctmh8Q/viewform?usp=send_form";
 
-const fallingPetals = [
-  { x: "54%", y: "49%", size: 8, delay: 0, drift: 16 },
-  { x: "59%", y: "46%", size: 6, delay: 0.35, drift: -10 },
-  { x: "61%", y: "42%", size: 7, delay: 0.7, drift: -12 },
-  { x: "66%", y: "45%", size: 6, delay: 1.05, drift: 13 },
-  { x: "69%", y: "47%", size: 9, delay: 1.4, drift: 18 },
-  { x: "76%", y: "45%", size: 7, delay: 1.75, drift: -14 },
-  { x: "80%", y: "47%", size: 6, delay: 2.1, drift: 10 },
-  { x: "84%", y: "48%", size: 8, delay: 2.45, drift: 12 },
-  { x: "89%", y: "45%", size: 6, delay: 2.8, drift: -11 },
-  { x: "92%", y: "43%", size: 7, delay: 3.15, drift: -16 },
-  { x: "97%", y: "40%", size: 8, delay: 3.5, drift: 14 },
+const heroSlides = [
+  {
+    src: "/img/hero/flower-in-hands.png",
+    alt: "A white flower resting gently in open hands",
+    fit: "cover",
+  },
+  {
+    src: "/img/hero/lotus-pebbles-landscape.png",
+    alt: "A white lotus resting above stacked pebbles and their reflection",
+    fit: "cover",
+  },
+  {
+    src: "/img/hero/moonlit-tree.png",
+    alt: "A red-leafed tree beneath a pale moon in a quiet winter landscape",
+    fit: "cover",
+  },
 ];
 
-const petalLoopTimes = [0, 0.24, 0.58, 0.76, 0.86, 0.88, 1];
-const bigPetalLoopTimes = [0, 0.18, 0.32, 0.54, 0.76, 0.86, 0.92, 0.95, 1];
+function HeroSlideshow() {
+  const [activeSlide, setActiveSlide] = useState(0);
 
-const getBigPetalFall = (clusterIndex: number, pointIndex: number) => {
-  const direction = (clusterIndex + pointIndex) % 2 === 0 ? 1 : -1;
-  const drift = direction * (18 + pointIndex * 3 + clusterIndex * 2);
-  const loosen = direction * (2 + (pointIndex % 3));
+  useEffect(() => {
+    const interval = window.setInterval(
+      () => setActiveSlide((current) => (current + 1) % heroSlides.length),
+      5000,
+    );
+    return () => window.clearInterval(interval);
+  }, []);
 
-  return {
-    x: [0, loosen, drift * -0.15, drift * 0.35, drift, drift * 1.18, drift * 1.18, 0, 0],
-    y: [0, 2, 18, 74, 154, 238, 238, 0, 0],
+  const showPrevious = () => {
+    setActiveSlide((current) => (current - 1 + heroSlides.length) % heroSlides.length);
   };
-};
-
-function HeroTreeIllustration() {
-  const berryClusters = [
-    { x: 240, y: 390, points: [[0, 0], [24, -30], [40, -2], [60, -42], [80, -16], [96, -58]] },
-    { x: 408, y: 438, points: [[0, 0], [28, -18], [48, 10], [64, -28], [84, -6]] },
-    { x: 664, y: 355, points: [[0, 0], [18, -38], [44, -18], [52, -60], [80, -40], [98, -72]] },
-    { x: 822, y: 390, points: [[0, 0], [26, -26], [50, -10], [66, -46], [88, -24], [106, -58]] },
-    { x: 1012, y: 436, points: [[0, 0], [20, -28], [42, -4], [58, -42], [76, -18]] },
-  ];
+  const showNext = () => {
+    setActiveSlide((current) => (current + 1) % heroSlides.length);
+  };
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-0 hidden overflow-hidden sm:block" aria-hidden="true">
-      <motion.svg
-        viewBox="0 0 1240 700"
-        preserveAspectRatio="xMidYMid slice"
-        className="absolute inset-y-0 right-[-28%] h-full w-[150%] min-w-[900px] opacity-80 will-change-transform lg:right-[-18%] lg:w-[128%] lg:min-w-[1180px] lg:opacity-95"
-        initial={{ opacity: 0, x: 42, y: 10 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <g fill="none" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M-78 496 C70 476 172 438 280 460 C390 484 456 527 574 492 C684 459 772 392 884 410 C1006 430 1096 388 1288 330" stroke="#5A321F" strokeWidth="16" />
-          <path d="M-60 501 C82 488 172 450 278 471 C392 494 464 530 574 501 C690 472 770 414 886 422 C1006 432 1102 401 1284 348" stroke="#7B4A2A" strokeWidth="7" opacity="0.7" />
-
-          <path d="M128 468 C148 420 160 370 202 342 C228 326 258 315 284 289" stroke="#4D2B1B" strokeWidth="7" />
-          <path d="M196 345 C195 309 205 276 234 252" stroke="#4D2B1B" strokeWidth="4.4" />
-          <path d="M220 330 C246 316 266 300 278 270" stroke="#4D2B1B" strokeWidth="4.4" />
-          <path d="M250 359 C292 346 326 332 360 296" stroke="#4D2B1B" strokeWidth="5.2" />
-          <path d="M320 322 C318 288 330 262 354 240" stroke="#4D2B1B" strokeWidth="3.8" />
-
-          <path d="M390 496 C410 458 432 434 474 414" stroke="#4D2B1B" strokeWidth="5.6" />
-          <path d="M456 424 C454 392 468 370 494 350" stroke="#4D2B1B" strokeWidth="4.2" />
-          <path d="M476 414 C500 412 524 402 548 378" stroke="#4D2B1B" strokeWidth="4.2" />
-
-          <path d="M626 474 C640 428 654 370 690 330" stroke="#4D2B1B" strokeWidth="7" />
-          <path d="M682 340 C674 294 682 260 710 230" stroke="#4D2B1B" strokeWidth="4.5" />
-          <path d="M690 338 C722 312 756 288 790 246" stroke="#4D2B1B" strokeWidth="5.3" />
-          <path d="M756 290 C756 260 770 234 796 214" stroke="#4D2B1B" strokeWidth="3.8" />
-
-          <path d="M804 412 C828 376 858 344 904 320" stroke="#4D2B1B" strokeWidth="5.4" />
-          <path d="M882 331 C886 294 904 266 936 244" stroke="#4D2B1B" strokeWidth="4.2" />
-          <path d="M904 324 C942 318 974 300 1010 270" stroke="#4D2B1B" strokeWidth="4.8" />
-
-          <path d="M982 410 C1010 374 1042 334 1094 304" stroke="#4D2B1B" strokeWidth="5.8" />
-          <path d="M1070 318 C1084 280 1110 250 1142 226" stroke="#4D2B1B" strokeWidth="4.2" />
-          <path d="M1095 304 C1146 306 1194 286 1246 248" stroke="#4D2B1B" strokeWidth="4.4" />
-          <path d="M1210 272 C1242 284 1268 300 1296 326" stroke="#4D2B1B" strokeWidth="3.6" />
-        </g>
-
-        {berryClusters.map((cluster, clusterIndex) => (
-          <g key={clusterIndex}>
-            {cluster.points.map(([x, y], pointIndex) => {
-              const fall = getBigPetalFall(clusterIndex, pointIndex);
-
-              return (
-                <motion.circle
-                  key={`${clusterIndex}-${pointIndex}`}
-                  cx={cluster.x + x}
-                  cy={cluster.y + y}
-                  r={pointIndex % 3 === 0 ? 9 : 7}
-                  fill={pointIndex % 2 === 0 ? "#D60E5B" : "#F04A83"}
-                  stroke="#FFE3EC"
-                  strokeWidth="2"
-                  style={{ willChange: "transform, opacity" }}
-                  animate={{
-                    x: fall.x,
-                    y: fall.y,
-                    opacity: [1, 1, 0.96, 0.78, 0.38, 0, 0, 0, 1],
-                    scale: [1, 1.02, 1, 0.94, 0.84, 0.72, 0.72, 0.72, 1],
-                  }}
-                  transition={{
-                    duration: 9.8 + clusterIndex * 0.45 + pointIndex * 0.22,
-                    delay: clusterIndex * 0.48 + pointIndex * 0.26,
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    ease: "linear",
-                    times: bigPetalLoopTimes,
-                  }}
-                />
-              );
-            })}
-          </g>
+    <section className="relative left-1/2 flex min-h-[100svh] w-screen -translate-x-1/2 items-end overflow-hidden bg-[#111417] px-6 pb-10 pt-28 sm:min-h-screen sm:px-8 sm:pb-16 sm:pt-32 lg:px-12">
+      <div className="absolute inset-0" aria-live="off">
+        {heroSlides.map((slide, index) => (
+          <div
+            key={slide.src}
+            aria-hidden={index !== activeSlide}
+            className={`absolute inset-0 overflow-hidden transition-opacity duration-[1500ms] ease-in-out ${
+              index === activeSlide ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {slide.fit === "contain" && (
+              <img
+                src={slide.src}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full scale-110 object-cover opacity-55 blur-2xl"
+              />
+            )}
+            <img
+              src={slide.src}
+              alt={index === activeSlide ? slide.alt : ""}
+              className={`absolute inset-0 h-full w-full ${
+                slide.fit === "contain"
+                  ? "object-contain object-center sm:object-right"
+                  : "object-cover object-center"
+              }`}
+            />
+          </div>
         ))}
-      </motion.svg>
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,20,23,0.72)_0%,rgba(17,20,23,0.46)_52%,rgba(17,20,23,0.1)_100%)] sm:bg-[linear-gradient(90deg,rgba(17,20,23,0.68)_0%,rgba(17,20,23,0.34)_50%,rgba(17,20,23,0.06)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(17,20,23,0.48)_0%,transparent_58%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-[30%] bg-[linear-gradient(0deg,#F6D4B8_0%,rgba(246,212,184,0)_100%)]" />
+      </div>
 
-      {fallingPetals.map((petal, index) => (
-        <motion.span
-          key={index}
-          className="absolute hidden rounded-full bg-[#D60E5B] will-change-transform sm:block"
-          style={{ left: petal.x, top: petal.y, width: petal.size, height: petal.size }}
-          animate={{
-            x: [0, petal.drift * 0.35, petal.drift, petal.drift * -0.35, petal.drift * -0.35, 0, 0],
-            y: [0, 20, 116, 198, 198, 0, 0],
-            opacity: [0.8, 0.8, 0.48, 0, 0, 0, 0.8],
-            scale: [0.95, 0.98, 0.88, 0.7, 0.7, 0.7, 0.95],
-          }}
-          transition={{
-            duration: 7.4 + index * 0.16,
-            delay: petal.delay,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "linear",
-            times: petalLoopTimes,
-          }}
-        />
-      ))}
+      <div className="relative z-10 w-full">
+        <div className="max-w-3xl">
+          <motion.p variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0 } }} className="mb-4 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#F0BD8B] sm:text-xs">
+            Holistic Guidance Counsellor
+          </motion.p>
+          <motion.h1 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="no-section-marker mb-5 max-w-3xl font-serif text-[2.55rem] font-semibold leading-[1.08] tracking-[-0.025em] text-white drop-shadow-lg sm:text-6xl lg:text-7xl">
+            Here to help you navigate life's tough moments
+          </motion.h1>
+          <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="mb-4 max-w-2xl text-[0.95rem] leading-relaxed text-white/80 drop-shadow-md sm:text-lg">
+            A safe space to release repetitive patterns, inherited fears, and anxiety - and gently return to the most aligned version of yourself.
+          </motion.p>
+          <motion.p variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="mb-7 font-serif text-base text-white sm:mb-10 sm:text-xl">
+            Let&apos;s create your golden version, together.
+          </motion.p>
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }} className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+            <Link to="/booking" className="group flex w-full items-center justify-center gap-2 border border-white bg-white px-7 py-3.5 text-sm font-semibold text-[#001852] transition-colors duration-300 hover:bg-transparent hover:text-white sm:w-auto sm:text-base">
+              Book Your Session <ArrowRight className="h-5 w-5" />
+            </Link>
+            <Link to="/services" className="group flex w-full items-center justify-center gap-2 px-2 py-3.5 text-sm font-semibold text-white transition-colors duration-300 hover:text-[#F0BD8B] sm:w-auto sm:text-base">
+              Explore Services <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </Link>
+          </motion.div>
+        </div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-[#FFF3E4]/95 via-[#FFF3E4]/72 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#FFF5EA] to-transparent sm:h-36" />
-    </div>
+        <div className="mt-10 flex items-center gap-3 sm:absolute sm:bottom-0 sm:right-0 sm:mt-0" aria-label="Hero slideshow controls">
+          <button type="button" onClick={showPrevious} aria-label="Previous hero image" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-[#111417]/30 text-white backdrop-blur-sm transition hover:border-[#F0BD8B] hover:text-[#F0BD8B]">
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <div className="flex items-center gap-2 px-2">
+            {heroSlides.map((slide, index) => (
+              <button
+                key={slide.src}
+                type="button"
+                onClick={() => setActiveSlide(index)}
+                aria-label={`Show hero image ${index + 1}`}
+                aria-current={index === activeSlide}
+                className={`h-2 rounded-full transition-all duration-300 ${index === activeSlide ? "w-6 bg-[#F0BD8B]" : "w-2 bg-white/45 hover:bg-white/80"}`}
+              />
+            ))}
+          </div>
+          <button type="button" onClick={showNext} aria-label="Next hero image" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-[#111417]/30 text-white backdrop-blur-sm transition hover:border-[#F0BD8B] hover:text-[#F0BD8B]">
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -170,6 +149,13 @@ export function Home() {
 
   const servicesData = [
     {
+      title: "Clarity Call",
+      desc: "A focused 30-minute conversation to find clarity and identify your next helpful step.",
+      icon: Sparkles,
+      bg: "bg-[#FDEBD0]",
+      image: "/img/services/clarity-call.png",
+    },
+    {
       title: "Individual Therapy Sessions",
       desc: "One-on-one customised therapy for personal healing, emotional clarity, and inner alignment.",
       icon: User,
@@ -192,7 +178,7 @@ export function Home() {
     },
     {
       title: "Relationship Counselling",
-      desc: "Guidance for communication, attachment patterns, and healthier connection.",
+      desc: "Guidance for communication, attachment patterns, narcissistic abuse healing and healthier connections.",
       icon: MessageCircle,
       bg: "bg-[#FDEBD0]", // Light Orange
       image: "/img/services/relationship-counselling-relatable.png",
@@ -241,44 +227,15 @@ export function Home() {
   return (
     <motion.div variants={containerVariants} initial="hidden" animate="visible" className="space-y-12 sm:space-y-20 lg:space-y-24">
       {/* Hero Section */}
-      <section className="relative left-1/2 flex w-screen -translate-x-1/2 items-center overflow-hidden bg-[#FFF3E4] px-9 py-10 sm:min-h-[calc(100vh-8rem)] sm:px-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] sm:py-20 md:py-28">
-        <HeroTreeIllustration />
-
-        <div className="relative z-10 max-w-[46rem]">
-          <motion.p variants={itemVariants} className="mb-3 sm:mb-6 text-[0.68rem] sm:text-sm font-medium tracking-[0.08em] uppercase text-[#6C5B32]">
-            Holistic Guidance Counsellor
-          </motion.p>
-
-          <motion.h1 variants={itemVariants} className="no-section-marker text-[2rem] sm:text-5xl md:text-6xl font-serif font-semibold text-[#171717] leading-[1.08] mb-4 sm:mb-7">
-            Here to help you navigate life's tough moments
-          </motion.h1>
-
-          <motion.p variants={itemVariants} className="text-[0.95rem] sm:text-lg text-[#313131] mb-3 sm:mb-4 max-w-xl leading-relaxed">
-            At KosmicAlign, therapy is a process of aligning the mind, body, and spirit with structured, one-on-one support created around your life story.
-          </motion.p>
-
-          <motion.p variants={itemVariants} className="text-[0.95rem] sm:text-lg font-serif text-[#171717] mb-6 sm:mb-9">
-            You do not have to move through it alone.
-          </motion.p>
-
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5">
-            <Link to="/booking" className="group w-full sm:w-auto px-6 sm:px-7 py-3 sm:py-3.5 bg-white text-[#171717] rounded-full text-sm sm:text-base font-semibold transition-colors duration-300 border border-[#171717] hover:bg-[#171717] hover:text-white flex items-center justify-center gap-2">
-              Book Your Session <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link to="/services" className="group w-full sm:w-auto px-2 py-2.5 sm:py-3.5 text-[#171717] text-sm sm:text-base font-semibold hover:text-[#4B2B83] transition-colors duration-300 flex items-center justify-center gap-2">
-              Explore Services <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      <HeroSlideshow />
 
       {/* Featured Services */}
-      <section className="max-w-7xl mx-auto">
+      <section className="relative z-10 -mt-12 max-w-7xl mx-auto pt-10 sm:-mt-20 sm:pt-14 lg:-mt-24 lg:pt-16">
         <div className="text-center mb-10 sm:mb-16">
-          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold text-[#585858] mb-4">
+          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold text-[#001852] mb-4">
             Our Core Services
           </motion.h2>
-          <motion.p variants={itemVariants} className="text-[#7A7A7A] max-w-xl mx-auto text-base sm:text-lg">
+          <motion.p variants={itemVariants} className="text-[#001852] max-w-xl mx-auto text-base sm:text-lg">
             Compassionate, structured guidance tailored to your unique emotional and psychological footprint.
           </motion.p>
         </div>
@@ -299,8 +256,8 @@ export function Home() {
                   <div className="w-11 h-11 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center mb-5 sm:mb-6 shadow-sm">
                     <service.icon className="w-6 h-6 text-[#E84C3D]" />
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-serif font-semibold text-[#585858] mb-3">{service.title}</h3>
-                  <p className="text-[#7A7A7A] leading-relaxed mb-6">{service.desc}</p>
+                  <h3 className="text-xl sm:text-2xl font-serif font-semibold text-[#001852] mb-3">{service.title}</h3>
+                  <p className="text-[#001852] leading-relaxed mb-6">{service.desc}</p>
                 </div>
                 <Link to={bookingLink} className="group/link inline-flex items-center text-[#E84C3D] font-semibold transition-colors duration-300 gap-2 hover:text-[#C0392B]">
                   Book Session <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5" />
@@ -313,20 +270,20 @@ export function Home() {
 
       {/* Tools Used */}
       <section className="max-w-5xl mx-auto bg-[#FDF3E6]/90 rounded-[1.75rem] sm:rounded-[2.5rem] p-5 sm:p-10 md:p-16 text-center shadow-inner">
-        <motion.h2 variants={itemVariants} className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-[#585858] mb-8">
+        <motion.h2 variants={itemVariants} className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-[#001852] mb-8">
           Therapeutic Tools & Techniques
         </motion.h2>
         <motion.div variants={itemVariants} className="grid grid-cols-1 sm:flex sm:flex-wrap justify-center gap-3 sm:gap-4 text-left sm:text-center">
           {toolsUsed.map((tool, idx) => (
-            <div key={idx} tabIndex={0} className="group relative bg-white px-5 py-4 sm:px-6 sm:py-3 rounded-2xl sm:rounded-full text-[#585858] font-medium shadow-sm hover:shadow-md transition-all border border-[#E5BE90]/30 hover:border-[#E84C3D]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E84C3D]/30 cursor-default">
+            <div key={idx} tabIndex={0} className="group relative bg-white px-5 py-4 sm:px-6 sm:py-3 rounded-2xl sm:rounded-full text-[#001852] font-medium shadow-sm hover:shadow-md transition-all border border-[#E5BE90]/30 hover:border-[#E84C3D]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E84C3D]/30 cursor-default">
               <span className="flex items-start sm:inline gap-2">
                 <Sparkles className="w-4 h-4 mt-1 sm:mt-0 sm:inline-block sm:mr-2 text-[#E84C3D] shrink-0" /> {tool.name}
               </span>
-              <span className="mt-2 block text-sm font-normal leading-relaxed text-[#7A7A7A] sm:hidden">{tool.desc}</span>
+              <span className="mt-2 block text-sm font-normal leading-relaxed text-[#001852] sm:hidden">{tool.desc}</span>
               
-              <div className="absolute hidden opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-[#585858] text-white text-xs px-3 py-2 rounded-lg pointer-events-none z-20 shadow-lg text-center sm:block">
+              <div className="absolute hidden opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200 bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-[#001852] text-white text-xs px-3 py-2 rounded-lg pointer-events-none z-20 shadow-lg text-center sm:block">
                 {tool.desc}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 border-opacity-0 border-4 border-t-[#585858]"></div>
+                <div className="absolute top-full left-1/2 -translate-x-1/2 border-opacity-0 border-4 border-t-[#001852]"></div>
               </div>
             </div>
           ))}
@@ -337,8 +294,8 @@ export function Home() {
       <section className="bg-white/90 rounded-[1.75rem] sm:rounded-[2.5rem] p-6 sm:p-10 md:p-16 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-serif font-semibold text-[#585858] mb-4">How It Works</h2>
-            <p className="text-[#7A7A7A] text-base sm:text-lg">A simple way to find alignment and confidence.</p>
+            <h2 className="text-3xl sm:text-4xl font-serif font-semibold text-[#001852] mb-4">How It Works</h2>
+            <p className="text-[#001852] text-base sm:text-lg">A simple way to find alignment and confidence.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12 relative">
@@ -348,11 +305,11 @@ export function Home() {
                 <div className="w-24 h-24 rounded-full bg-[#FFF5EA] border-4 border-white shadow-md flex items-center justify-center mb-6">
                   <step.icon className="w-10 h-10 text-[#E84C3D]" />
                 </div>
-                <h3 className="text-xl font-serif font-semibold text-[#585858] mb-3">
+                <h3 className="text-xl font-serif font-semibold text-[#001852] mb-3">
                   <span className="text-[#E5BE90] mr-2">0{idx + 1}.</span>
                   {step.title}
                 </h3>
-                <p className="text-[#7A7A7A] max-w-[250px]">{step.desc}</p>
+                <p className="text-[#001852] max-w-[250px]">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -362,10 +319,10 @@ export function Home() {
       {/* In Person vs Online */}
       <section className="bg-white/90 rounded-[1.75rem] sm:rounded-[2.5rem] p-6 sm:p-10 md:p-16 shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
         <motion.div variants={itemVariants} className="max-w-4xl mx-auto space-y-8 text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold text-[#585858]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-semibold text-[#001852]">
             Find Guidance Wherever You Are
           </h2>
-          <p className="text-base sm:text-lg text-[#7A7A7A] leading-relaxed">
+          <p className="text-base sm:text-lg text-[#001852] leading-relaxed">
             Whether you prefer the grounding energy of an in-person session or the convenience of remote therapy, KosmicAlign is structured to meet you where you are.
           </p>
 
@@ -375,8 +332,8 @@ export function Home() {
                 <MapPin className="w-6 h-6 text-[#E5BE90]" />
               </div>
               <div>
-                <h4 className="text-xl font-serif font-semibold text-[#585858] mb-1">In-Person in Delhi</h4>
-                <p className="text-[#7A7A7A]">Visit our serene wellness space in the heart of Delhi for a deeply personal, grounded experience.</p>
+                <h4 className="text-xl font-serif font-semibold text-[#001852] mb-1">In-Person in Delhi</h4>
+                <p className="text-[#001852]">Visit our serene wellness space in the heart of Delhi for a deeply personal, grounded experience.</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -384,16 +341,36 @@ export function Home() {
                 <Globe className="w-6 h-6 text-[#E84C3D]" />
               </div>
               <div>
-                <h4 className="text-xl font-serif font-semibold text-[#585858] mb-1">Online Worldwide</h4>
-                <p className="text-[#7A7A7A]">Connect online for structured therapy sessions from the comfort of your home, anywhere in the world.</p>
+                <h4 className="text-xl font-serif font-semibold text-[#001852] mb-1">Online Worldwide</h4>
+                <p className="text-[#001852]">Connect online for structured therapy sessions from the comfort of your home, anywhere in the world.</p>
               </div>
             </div>
           </div>
         </motion.div>
       </section>
 
-      {/* Instagram Feed */}
-      <InstagramFeed />
+      <motion.section
+        id="journey"
+        variants={itemVariants}
+        className="grid overflow-hidden rounded-[1.75rem] bg-white/90 shadow-[0_8px_32px_rgba(88,88,88,0.02)] sm:rounded-[2.5rem] md:grid-cols-[1fr_minmax(0,0.95fr)]"
+      >
+        <div className="flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-14 md:px-14">
+          <h2 className="mb-4 font-serif text-3xl font-semibold text-[#001852] sm:text-4xl">
+            Your journey
+          </h2>
+          <p className="max-w-xl text-base leading-relaxed text-[#001852] sm:text-lg">
+            It is an ongoing journey which may take multiple sessions for each client, the number of sessions may vary in each individual's life.
+          </p>
+        </div>
+        <div className="min-h-52 overflow-hidden bg-[#FDF3E6] sm:min-h-64 md:min-h-full">
+          <img
+            src="/img/journey-growth.png"
+            alt="Plants growing from seedlings into blooming roses"
+            loading="lazy"
+            className="h-full w-full scale-[1.16] object-cover object-center"
+          />
+        </div>
+      </motion.section>
 
       {/* Client Intake */}
       <section className="bg-white/90 rounded-[1.75rem] sm:rounded-[2.5rem] py-12 sm:py-16 px-5 sm:px-6 md:px-12 text-center relative overflow-hidden shadow-[0_8px_32px_rgba(88,88,88,0.02)]">
@@ -403,10 +380,10 @@ export function Home() {
           <div className="w-14 h-14 rounded-full bg-[#FFF5EA] border border-[#E5BE90]/30 flex items-center justify-center mx-auto mb-7 shadow-sm">
             <ClipboardList className="w-7 h-7 text-[#E84C3D]" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif font-semibold text-[#585858] mb-4">
+          <h2 className="text-3xl md:text-4xl font-serif font-semibold text-[#001852] mb-4">
             Client Intake Form
           </h2>
-          <p className="text-[#7A7A7A] text-lg leading-relaxed max-w-2xl mx-auto mb-8">
+          <p className="text-[#001852] text-lg leading-relaxed max-w-2xl mx-auto mb-8">
             Share a little about what brings you here so your first conversation can begin with care, context, and clarity.
           </p>
           <a

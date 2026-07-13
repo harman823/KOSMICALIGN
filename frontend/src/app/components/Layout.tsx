@@ -3,6 +3,13 @@ import { Link, Outlet, useLocation } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { Instagram, Mail, MapPin, MessageCircle, Star, Menu, X } from "lucide-react";
 import { Chatbot } from "./Chatbot";
+import {
+  CONTACT_ADDRESS_LINES,
+  CONTACT_EMAIL,
+  GOOGLE_MAPS_URL,
+  WHATSAPP_NUMBER_DISPLAY,
+  WHATSAPP_URL,
+} from "../../lib/contact";
 
 const INSTAGRAM_URL =
   "https://www.instagram.com/kosmicalign?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==";
@@ -10,9 +17,9 @@ const INSTAGRAM_URL =
 function LogoMark({ className = "" }: { className?: string }) {
   return (
     <img
-      src="/img/kosmicalign-logo.png"
+      src="/img/kosmicalign-logo-new.jpeg"
       alt=""
-      className={`block h-10 w-10 shrink-0 rounded-full object-cover transition-transform group-hover:rotate-6 ${className}`}
+      className={`block h-10 w-10 shrink-0 rounded-md bg-white object-contain transition-transform group-hover:rotate-6 ${className}`}
       aria-hidden="true"
     />
   );
@@ -21,13 +28,14 @@ function LogoMark({ className = "" }: { className?: string }) {
 export function Layout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "About Me", path: "/about" },
     { name: "Services", path: "/services" },
     { name: "Booking", path: "/booking" },
     { name: "Contact", path: "/contact" },
+    { name: "About Me", path: "/about" },
   ];
 
   React.useEffect(() => {
@@ -58,12 +66,11 @@ export function Layout() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden md:overflow-x-hidden md:overflow-y-visible bg-[#FFF5EA]">
-      <div className="kosmic-gradient" aria-hidden="true" />
+    <div className="min-h-screen flex flex-col relative overflow-hidden md:overflow-x-hidden md:overflow-y-visible bg-[#F6D4B8]">
 
       {/* Navigation */}
       <header className="fixed top-0 left-0 right-0 z-50 px-3 py-3 sm:px-6 sm:py-4">
-        <nav className="max-w-7xl mx-auto glass-panel rounded-full px-4 py-3 sm:px-6 flex items-center justify-between ghost-border shadow-[0_8px_32px_rgba(88,88,88,0.06)]">
+        <nav className="max-w-7xl mx-auto glass-panel rounded-full px-4 py-3 sm:px-6 flex items-center justify-between ghost-border shadow-[0_14px_42px_rgba(28,20,16,0.24)]">
           <Link to="/" className="flex items-center gap-2 group">
             <LogoMark className="h-9 w-9 sm:h-10 sm:w-10" />
             <span className="font-serif text-lg sm:text-xl font-semibold tracking-tight text-[#125E8A]">KosmicAlign</span>
@@ -78,7 +85,7 @@ export function Layout() {
                 className={`text-sm font-medium transition-colors ${
                   location.pathname === link.path
                     ? "text-[#E84C3D]"
-                    : "text-[#7A7A7A] hover:text-[#E84C3D]"
+                    : "text-[#001852] hover:text-[#E84C3D]"
                 }`}
               >
                 {link.name}
@@ -97,7 +104,7 @@ export function Layout() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden text-[#585858] mobile-tap-highlight rounded-full p-2 -mr-2"
+            className="md:hidden text-[#001852] mobile-tap-highlight rounded-full p-2 -mr-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
@@ -126,7 +133,7 @@ export function Layout() {
                   className={`text-2xl font-serif font-semibold mobile-tap-highlight rounded-full px-4 py-2 ${
                     location.pathname === link.path
                       ? "text-[#E84C3D]"
-                      : "text-[#585858]"
+                      : "text-[#001852]"
                   }`}
                 >
                   {link.name}
@@ -145,7 +152,7 @@ export function Layout() {
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 pt-[5.5rem] sm:pt-28 pb-6 sm:pb-12 px-4 sm:px-6 relative z-10">
+      <main className={`flex-1 pb-6 sm:pb-12 px-4 sm:px-6 relative z-10 ${isHomePage ? "pt-0" : "pt-[5.5rem] sm:pt-28"}`}>
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -168,16 +175,16 @@ export function Layout() {
               <LogoMark className="h-11 w-11 transition-none group-hover:rotate-0" />
               <span className="font-serif text-2xl font-semibold text-[#125E8A]">KosmicAlign</span>
             </Link>
-            <p className="text-[#7A7A7A] leading-relaxed max-w-md font-sans text-sm sm:text-base">
+            <p className="text-[#001852] leading-relaxed max-w-md font-sans text-sm sm:text-base">
               A holistic counselling and therapy space for structured healing, inner alignment, and support through life's tough moments.
             </p>
           </div>
           <div>
-            <h4 className="font-serif text-[#585858] text-lg mb-4 sm:mb-6 font-semibold">Explore</h4>
+            <h4 className="font-serif text-[#001852] text-lg mb-4 sm:mb-6 font-semibold">Explore</h4>
             <ul className="space-y-3 sm:space-y-4">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path} className="text-[#7A7A7A] hover:text-[#E84C3D] transition-colors">
+                  <Link to={link.path} className="text-[#001852] hover:text-[#E84C3D] transition-colors">
                     {link.name}
                   </Link>
                 </li>
@@ -185,21 +192,25 @@ export function Layout() {
             </ul>
           </div>
           <div>
-            <h4 className="font-serif text-[#585858] text-lg mb-4 sm:mb-6 font-semibold">Connect</h4>
-            <ul className="space-y-3 sm:space-y-4 text-[#7A7A7A]">
-              <li className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-[#E84C3D] mt-1 shrink-0" />
-                Delhi, India & Worldwide
-              </li>
+            <h4 className="font-serif text-[#001852] text-lg mb-4 sm:mb-6 font-semibold">Connect</h4>
+            <ul className="space-y-3 sm:space-y-4 text-[#001852]">
               <li>
-                <a href="mailto:hello@kosmicalign.com" className="flex items-start gap-3 hover:text-[#E84C3D] transition-colors break-all">
-                  <Mail className="h-4 w-4 text-[#E84C3D] mt-1 shrink-0" />
-                  <span>hello@kosmicalign.com</span>
+                <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-[#E84C3D] transition-colors">
+                  <MapPin className="h-4 w-4 text-[#E84C3D] mt-1 shrink-0" />
+                  <span>{CONTACT_ADDRESS_LINES.join(", ")}</span>
                 </a>
               </li>
-              <li className="flex items-start gap-3">
-                <MessageCircle className="h-4 w-4 text-[#E84C3D] mt-1 shrink-0" />
-                WhatsApp Consultation
+              <li>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-start gap-3 hover:text-[#E84C3D] transition-colors break-all">
+                  <Mail className="h-4 w-4 text-[#E84C3D] mt-1 shrink-0" />
+                  <span>{CONTACT_EMAIL}</span>
+                </a>
+              </li>
+              <li>
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-[#E84C3D] transition-colors">
+                  <MessageCircle className="h-4 w-4 text-[#E84C3D] mt-1 shrink-0" />
+                  <span>{WHATSAPP_NUMBER_DISPLAY}</span>
+                </a>
               </li>
               <li>
                 <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 hover:text-[#E84C3D] transition-colors">
@@ -210,7 +221,7 @@ export function Layout() {
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto mt-8 sm:mt-10 pt-6 border-t border-[#7A7A7A]/10 flex flex-col md:flex-row items-center justify-between text-sm text-[#7A7A7A]">
+        <div className="max-w-7xl mx-auto mt-8 sm:mt-10 pt-6 border-t border-[#001852]/10 flex flex-col md:flex-row items-center justify-between text-sm text-[#001852]">
           <p>© 2026 KosmicAlign. All rights reserved.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <Link to="#" className="hover:text-[#E84C3D]">Privacy</Link>

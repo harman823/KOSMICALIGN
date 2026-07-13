@@ -50,6 +50,7 @@ model Service {
   slug             String      @unique
   title            String
   description      String
+  imageUrl         String?
   durationMin      Int
   price            Float
   sessionMode      SessionMode

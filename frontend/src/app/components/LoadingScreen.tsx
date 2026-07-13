@@ -72,9 +72,9 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           className="mb-6"
         >
           <img
-            src="/img/kosmicalign-logo.png"
+            src="/img/kosmicalign-logo-new.jpeg"
             alt="KosmicAlign Logo"
-            className="block h-24 w-24 rounded-full object-cover shadow-[0_10px_30px_rgba(31,47,130,0.12)] md:h-28 md:w-28"
+            className="block h-28 w-28 rounded-xl bg-white object-contain shadow-[0_10px_30px_rgba(31,47,130,0.12)] md:h-36 md:w-36"
           />
         </motion.div>
 

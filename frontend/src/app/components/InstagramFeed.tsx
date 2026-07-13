@@ -17,10 +17,10 @@ export function InstagramFeed() {
         <motion.div variants={itemVariants} className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#FFF5EA] mb-4 shadow-sm border border-[#E5BE90]/30">
           <Instagram className="w-6 h-6 text-[#E84C3D]" />
         </motion.div>
-        <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-serif font-semibold text-[#585858] mb-3">
+        <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-serif font-semibold text-[#001852] mb-3">
           Follow Our Journey
         </motion.h2>
-        <motion.p variants={itemVariants} className="text-[#7A7A7A] max-w-xl mx-auto text-base md:text-lg mb-6">
+        <motion.p variants={itemVariants} className="text-[#001852] max-w-xl mx-auto text-base md:text-lg mb-6">
           Insights and behind the scenes on Instagram.
         </motion.p>
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4">

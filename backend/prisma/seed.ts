@@ -7,7 +7,7 @@ async function main() {
   for (const s of defaultServices) {
     await prisma.service.upsert({
       where: { slug: s.slug },
-      update: {},
+      update: s,
       create: s,
     });
   }

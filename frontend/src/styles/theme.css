@@ -1,18 +1,18 @@
 
 @theme {
-  --font-serif: "Poppins", sans-serif;
-  --font-sans: "Poppins", sans-serif;
+  --font-serif: "Noto Serif Malayalam", Georgia, serif;
+  --font-sans: "Noto Sans JP", Arial, sans-serif;
 
   --color-primary: #75A29E; 
   --color-primary-container: #5C8581; 
   --color-secondary: #E5BE90; 
-  --color-tertiary: #585858; 
+  --color-tertiary: #001852;
   
-  --color-surface: #FFF5EA; 
+  --color-surface: #F6D4B8;
   --color-surface-low: #FFFFFF; 
   --color-surface-high: #FDF3E6; 
   
-  --color-on-surface: #585858;
+  --color-on-surface: #001852;
   --color-on-primary: #FFFFFF;
 }
 
@@ -39,12 +39,15 @@
 
 @layer utilities {
   .glass-panel {
-    background: rgba(255, 245, 234, 0.7);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    background: rgba(255, 232, 211, 0.72);
+    backdrop-filter: blur(24px) saturate(1.18);
+    -webkit-backdrop-filter: blur(24px) saturate(1.18);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.72),
+      inset 0 -1px 0 rgba(98, 61, 38, 0.08);
   }
   .ghost-border {
-    border: 1px solid rgba(117, 162, 158, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.56);
   }
 
   .mobile-tap-highlight {

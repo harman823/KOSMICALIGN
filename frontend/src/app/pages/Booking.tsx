@@ -5,6 +5,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { fetchServices, fetchDaySlots, initiateBooking, fetchMonthlyAvailability, verifyPayment } from "../../lib/api";
 import { FALLBACK_SERVICES, REGISTRATION_PRICE, getServicePriceUnit, normalizeServicesResponse } from "../../lib/services";
+import { WHATSAPP_NUMBER_DISPLAY } from "../../lib/contact";
 
 const ENABLE_RAZORPAY_CHECKOUT = true;
 
@@ -161,9 +162,9 @@ export function Booking() {
       case 1:
         return (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-            <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#585858] mb-6 sm:mb-8 text-center">Select a Service</h3>
+            <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#001852] mb-6 sm:mb-8 text-center">Select a Service</h3>
             {loadingServices ? (
-              <div className="text-center text-[#7A7A7A] py-8">Loading services...</div>
+              <div className="text-center text-[#001852] py-8">Loading services...</div>
             ) : (
               <div className="space-y-4">
                 {services.map((service) => (
@@ -178,28 +179,28 @@ export function Booking() {
                     }`}
                   >
                     <div>
-                      <h4 className="text-xl font-serif font-semibold text-[#585858] mb-1">{service.title}</h4>
-                      <p className="text-sm text-[#7A7A7A] flex items-center gap-2">
+                      <h4 className="text-xl font-serif font-semibold text-[#001852] mb-1">{service.title}</h4>
+                      <p className="text-sm text-[#001852] flex items-center gap-2">
                         <CalendarDays className="w-4 h-4" /> {service.durationMin} mins
                       </p>
-                      <p className="text-xs text-[#7A7A7A] mt-2">
+                      <p className="text-xs text-[#001852] mt-2">
                         Each session would be of 1½ hr. Sessions may vary for each client.
                       </p>
                     </div>
                     <div className="text-left md:text-right">
-                      <span className="font-semibold text-[#585858] bg-white px-4 py-2 rounded-full text-sm shadow-sm">
+                      <span className="font-semibold text-[#001852] bg-white px-4 py-2 rounded-full text-sm shadow-sm">
                         ₹{service.price}
                       </span>
-                      <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-[#7A7A7A]">
+                      <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-[#001852]">
                         {getServicePriceUnit(service.title)}
                       </p>
-                      <p className="mt-2 text-xs font-semibold text-[#7A7A7A]">
+                      <p className="mt-2 text-xs font-semibold text-[#001852]">
                         Registration ₹{REGISTRATION_PRICE}
                       </p>
                     </div>
                   </button>
                 ))}
-                <div className="rounded-[2rem] bg-white/80 p-5 text-sm text-[#7A7A7A] border border-[#E5BE90]/30">
+                <div className="rounded-[2rem] bg-white/80 p-5 text-sm text-[#001852] border border-[#E5BE90]/30">
                   Registration charges: ₹{REGISTRATION_PRICE} per head, one-time.
                 </div>
               </div>
@@ -216,7 +217,7 @@ export function Booking() {
       case 2:
         return (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-            <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#585858] mb-6 sm:mb-8 text-center">Choose Date & Time</h3>
+            <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#001852] mb-6 sm:mb-8 text-center">Choose Date & Time</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 bg-[#FFF5EA] p-3 sm:p-4 md:p-8 rounded-[1.75rem] sm:rounded-[3rem]">
               <div className="flex justify-center min-w-0">
                 <DayPicker
@@ -233,9 +234,9 @@ export function Booking() {
                 />
               </div>
               <div>
-                <h4 className="text-lg font-serif font-semibold text-[#585858] mb-4">Available Times</h4>
+                <h4 className="text-lg font-serif font-semibold text-[#001852] mb-4">Available Times</h4>
                 {selectedDate && loadingSlots ? (
-                  <div className="text-[#7A7A7A] text-sm">Loading slots...</div>
+                  <div className="text-[#001852] text-sm">Loading slots...</div>
                 ) : selectedDate ? (
                   <div className="grid grid-cols-2 gap-3">
                     {timeSlots.length > 0 ? timeSlots.map((slot: any, idx: number) => {
@@ -249,23 +250,23 @@ export function Booking() {
                           className={`py-3 rounded-xl border transition-all text-sm font-medium disabled:opacity-30 disabled:cursor-not-allowed ${
                             selectedTime === timeStr
                               ? "bg-[#E84C3D] text-white border-[#E84C3D]"
-                              : "bg-white text-[#7A7A7A] border-transparent hover:border-[#E84C3D]/30"
+                              : "bg-white text-[#001852] border-transparent hover:border-[#E84C3D]/30"
                           }`}
                         >
                           {timeStr.includes("T") ? new Date(timeStr).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) : timeStr}
                         </button>
                       );
-                    }) : <div className="text-[#7A7A7A] text-sm col-span-2">No slots available.</div>}
+                    }) : <div className="text-[#001852] text-sm col-span-2">No slots available.</div>}
                   </div>
                 ) : (
-                  <p className="text-[#7A7A7A] text-sm">Please select a date first.</p>
+                  <p className="text-[#001852] text-sm">Please select a date first.</p>
                 )}
               </div>
             </div>
             <div className="flex gap-3 sm:gap-4 mt-8 sm:mt-12">
               <button
                 onClick={handlePrev}
-                className="w-1/3 py-3.5 sm:py-4 bg-white border border-[#E5BE90]/50 text-[#7A7A7A] rounded-full text-base sm:text-lg font-medium hover:bg-[#FFF5EA] transition-all"
+                className="w-1/3 py-3.5 sm:py-4 bg-white border border-[#E5BE90]/50 text-[#001852] rounded-full text-base sm:text-lg font-medium hover:bg-[#FFF5EA] transition-all"
               >
                 Back
               </button>
@@ -282,47 +283,47 @@ export function Booking() {
       case 3:
         return (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-            <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#585858] mb-6 sm:mb-8 text-center">Your Details</h3>
+            <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-[#001852] mb-6 sm:mb-8 text-center">Your Details</h3>
             <div className="space-y-6 max-w-lg mx-auto">
               <div>
-                <label className="block text-sm font-medium text-[#585858] mb-2">Full Name</label>
+                <label className="block text-sm font-medium text-[#001852] mb-2">Full Name</label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-[#FFF5EA] border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-[#E84C3D]/30 transition-all text-[#585858]"
+                  className="w-full bg-[#FFF5EA] border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-[#E84C3D]/30 transition-all text-[#001852]"
                   placeholder="Jane Doe"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-[#585858] mb-2">Email Address</label>
+                  <label className="block text-sm font-medium text-[#001852] mb-2">Email Address</label>
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-[#FFF5EA] border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-[#E84C3D]/30 transition-all text-[#585858]"
+                    className="w-full bg-[#FFF5EA] border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-[#E84C3D]/30 transition-all text-[#001852]"
                     placeholder="jane@example.com"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#585858] mb-2">Phone Number</label>
+                  <label className="block text-sm font-medium text-[#001852] mb-2">Phone Number</label>
                   <input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-[#FFF5EA] border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-[#E84C3D]/30 transition-all text-[#585858]"
-                    placeholder="+91 98765 43210"
+                    className="w-full bg-[#FFF5EA] border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-[#E84C3D]/30 transition-all text-[#001852]"
+                    placeholder={WHATSAPP_NUMBER_DISPLAY}
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#585858] mb-2">Session Type</label>
+                <label className="block text-sm font-medium text-[#001852] mb-2">Session Type</label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <button
                     onClick={() => setFormData({ ...formData, location: "online" })}
                     className={`py-4 px-3 rounded-2xl flex items-center justify-center gap-2 transition-all ${
-                      formData.location === "online" ? "bg-[#E84C3D] text-white" : "bg-[#FFF5EA] text-[#7A7A7A]"
+                      formData.location === "online" ? "bg-[#E84C3D] text-white" : "bg-[#FFF5EA] text-[#001852]"
                     }`}
                   >
                     Online (Zoom)
@@ -330,21 +331,21 @@ export function Booking() {
                   <button
                     onClick={() => setFormData({ ...formData, location: "inperson" })}
                     className={`py-4 px-3 rounded-2xl flex items-center justify-center gap-2 transition-all ${
-                      formData.location === "inperson" ? "bg-[#E84C3D] text-white" : "bg-[#FFF5EA] text-[#7A7A7A]"
+                      formData.location === "inperson" ? "bg-[#E84C3D] text-white" : "bg-[#FFF5EA] text-[#001852]"
                     }`}
                   >
                     <MapPin className="w-4 h-4" /> Delhi Clinic
                   </button>
                 </div>
               </div>
-              <div className="rounded-[2rem] bg-white p-5 text-sm text-[#7A7A7A] border border-[#E5BE90]/30">
+              <div className="rounded-[2rem] bg-white p-5 text-sm text-[#001852] border border-[#E5BE90]/30">
                 Registration charges: ₹{REGISTRATION_PRICE} per head, one-time. Payment is collected securely through Razorpay.
               </div>
             </div>
             <div className="flex gap-3 sm:gap-4 mt-8 sm:mt-12 max-w-lg mx-auto">
               <button
                 onClick={handlePrev}
-                className="w-1/3 py-3.5 sm:py-4 bg-white border border-[#E5BE90]/50 text-[#7A7A7A] rounded-full text-base sm:text-lg font-medium hover:bg-[#FFF5EA] transition-all"
+                className="w-1/3 py-3.5 sm:py-4 bg-white border border-[#E5BE90]/50 text-[#001852] rounded-full text-base sm:text-lg font-medium hover:bg-[#FFF5EA] transition-all"
               >
                 Back
               </button>
@@ -365,13 +366,13 @@ export function Booking() {
               <CheckCircle className="w-12 h-12 text-[#E84C3D] absolute z-10" />
               <div className="absolute inset-0 bg-[#FDEBD0] animate-ping rounded-full opacity-50" />
             </div>
-            <h3 className="text-3xl sm:text-4xl font-serif font-semibold text-[#585858] mb-4">Session Request Received</h3>
-            <p className="text-[#7A7A7A] text-base sm:text-lg max-w-md mx-auto mb-8">
+            <h3 className="text-3xl sm:text-4xl font-serif font-semibold text-[#001852] mb-4">Session Request Received</h3>
+            <p className="text-[#001852] text-base sm:text-lg max-w-md mx-auto mb-8">
               Thank you. Your booking and payment have been received, and the team will coordinate confirmation shortly.
             </p>
             <div className="bg-[#FFF5EA] p-5 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] max-w-md mx-auto text-left mb-12">
-              <h4 className="font-serif font-semibold text-[#585858] text-xl mb-4 border-b border-[#E5BE90]/30 pb-4">Booking Details</h4>
-              <div className="space-y-3 text-sm text-[#7A7A7A]">
+              <h4 className="font-serif font-semibold text-[#001852] text-xl mb-4 border-b border-[#E5BE90]/30 pb-4">Booking Details</h4>
+              <div className="space-y-3 text-sm text-[#001852]">
                 <div className="flex justify-between"><span className="font-medium">Service:</span> <span>{selectedServiceData?.title}</span></div>
                 <div className="flex justify-between"><span className="font-medium">Date:</span> <span>{selectedDate?.toLocaleDateString()}</span></div>
                 <div className="flex justify-between"><span className="font-medium">Time:</span> <span>{selectedTime.includes("T") ? new Date(selectedTime).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) : selectedTime}</span></div>
@@ -390,8 +391,8 @@ export function Booking() {
   return (
     <div className="max-w-4xl mx-auto pt-8 sm:pt-16 pb-8 sm:pb-12">
       <div className="text-center mb-10 sm:mb-16">
-        <h1 className="text-4xl sm:text-5xl font-serif font-semibold text-[#585858] mb-4">Book Your Session</h1>
-        <p className="text-base sm:text-lg text-[#7A7A7A]">Secure your spot for clarity, healing, and alignment.</p>
+        <h1 className="text-4xl sm:text-5xl font-serif font-semibold text-[#001852] mb-4">Book Your Session</h1>
+        <p className="text-base sm:text-lg text-[#001852]">Secure your spot for clarity, healing, and alignment.</p>
       </div>
 
       <div className="bg-white/90 p-4 sm:p-6 md:p-14 rounded-[1.75rem] sm:rounded-[2.5rem] shadow-[0_8px_32px_rgba(88,88,88,0.02)] min-h-[520px] sm:min-h-[600px] relative overflow-hidden">
@@ -401,11 +402,11 @@ export function Booking() {
               {[1, 2, 3].map((i) => (
                 <div key={i} className="flex flex-col items-center relative z-10 w-1/3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center font-serif font-semibold transition-colors ${
-                    step >= i ? "bg-[#E84C3D] text-white" : "bg-[#FFF5EA] text-[#7A7A7A]"
+                    step >= i ? "bg-[#E84C3D] text-white" : "bg-[#FFF5EA] text-[#001852]"
                   }`}>
                     {i}
                   </div>
-                  <span className="text-xs text-[#7A7A7A] mt-2 font-medium hidden md:block">
+                  <span className="text-xs text-[#001852] mt-2 font-medium hidden md:block">
                     {i === 1 ? "Service" : i === 2 ? "Schedule" : "Details"}
                   </span>
                 </div>

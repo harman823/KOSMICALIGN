@@ -2,6 +2,16 @@ export const REGISTRATION_PRICE = 105;
 
 export const FALLBACK_SERVICES = [
   {
+    id: "clarity-call",
+    slug: "clarity-call",
+    title: "Clarity Call",
+    description: "A focused one-on-one conversation to untangle what feels unclear, identify the next helpful step, and leave with a calmer sense of direction.",
+    imageUrl: "/img/services/clarity-call.png",
+    durationMin: 30,
+    price: 99,
+    sessionMode: "ONLINE",
+  },
+  {
     id: "individual-therapy",
     slug: "individual-therapy",
     title: "Individual Therapy Sessions",
@@ -32,7 +42,7 @@ export const FALLBACK_SERVICES = [
     id: "relationship-counselling",
     slug: "relationship-counselling",
     title: "Relationship Counselling",
-    description: "Guidance for communication, emotional patterns, attachment wounds, and healthier connection in important relationships.",
+    description: "Guidance for communication, attachment patterns, narcissistic abuse healing and healthier connections.",
     durationMin: 90,
     price: 3100,
     sessionMode: "ONLINE",
