@@ -367,7 +367,7 @@ export function Home() {
             src="/img/journey-growth.png"
             alt="Plants growing from seedlings into blooming roses"
             loading="lazy"
-            className="h-full w-full scale-[1.16] object-cover object-center"
+            className="h-full w-full origin-top scale-[1.24] object-cover object-center"
           />
         </div>
       </motion.section>
