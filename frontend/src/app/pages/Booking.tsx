@@ -92,6 +92,7 @@ export function Booking() {
     setIsBooking(true);
     try {
       if (!ENABLE_RAZORPAY_CHECKOUT) {
+        setIsBooking(false);
         handleNext();
         return;
       }
@@ -110,12 +111,22 @@ export function Booking() {
 
       if (pData.paymentMode === "mock") {
         await verifyPayment({ orderId: pData.orderId });
+        setIsBooking(false);
         handleNext();
         return;
       }
 
+      if (!(window as any).Razorpay) {
+        throw new Error("Razorpay Checkout failed to load. Please refresh and try again.");
+      }
+
+      const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID || pData.razorpayKeyId;
+      if (!razorpayKeyId) {
+        throw new Error("Razorpay is not configured. Please contact support.");
+      }
+
       const options = {
-        key: pData.razorpayKeyId,
+        key: razorpayKeyId,
         amount: pData.amount,
         currency: pData.currency,
         name: "Kosmic Align",
@@ -132,12 +143,20 @@ export function Booking() {
           } catch (err) {
             console.error("Payment verification failed", err);
             alert("Payment verification failed. Please contact support.");
+          } finally {
+            setIsBooking(false);
           }
         },
         prefill: {
           name: formData.name,
           email: formData.email,
           contact: formData.phone,
+        },
+        modal: {
+          ondismiss: function () {
+            setIsBooking(false);
+            alert("Payment cancelled. Your booking has not been confirmed.");
+          },
         },
         theme: {
           color: "#E84C3D"
@@ -146,14 +165,14 @@ export function Booking() {
 
       const rzp = new (window as any).Razorpay(options);
       rzp.on("payment.failed", function (resp: any) {
-        alert("Payment failed: " + resp.error.description);
+        setIsBooking(false);
+        alert("Payment failed: " + (resp?.error?.description || "Please try again."));
       });
       rzp.open();
-    } catch (err) {
-      console.error("Booking failed:", err);
-      alert("Failed to submit booking request. Please contact support.");
-    } finally {
+    } catch (err: any) {
       setIsBooking(false);
+      console.error("Booking failed:", err);
+      alert(err?.message || "Failed to submit booking request. Please contact support.");
     }
   };
 

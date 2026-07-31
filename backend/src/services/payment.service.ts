@@ -47,7 +47,14 @@ const verifyRazorpaySignature = (orderId: string, paymentId: string, signature: 
     .update(`${orderId}|${paymentId}`)
     .digest('hex');
 
-  return generatedSignature === signature;
+  if (!/^[a-f0-9]{64}$/i.test(signature)) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(
+    Buffer.from(generatedSignature, 'hex'),
+    Buffer.from(signature, 'hex'),
+  );
 };
 
 const loadPaymentWithBooking = async (orderId: string) => {
@@ -181,26 +188,7 @@ export const verifyPayment = async (
   orderId: string,
   razorpayPaymentId?: string,
   razorpaySignature?: string,
-  webhookEventId?: string
 ): Promise<PaymentVerificationResult> => {
-  if (webhookEventId) {
-    const existingWebhook = await prisma.webhookEvent.findUnique({ where: { eventId: webhookEventId } });
-
-    if (existingWebhook) {
-      const existingPayment = await loadPaymentWithBooking(orderId);
-      return finalizeSuccessfulPayment(orderId, existingPayment?.transactionId || `txn_replay_${Date.now()}`);
-    }
-
-    await prisma.webhookEvent.create({
-      data: {
-        eventId: webhookEventId,
-        provider: 'RAZORPAY',
-        payload: { orderId, razorpayPaymentId },
-        processed: true,
-      },
-    });
-  }
-
   if (usingMockPayment) {
     return finalizeSuccessfulPayment(orderId, razorpayPaymentId || `txn_mock_${Date.now()}`);
   }

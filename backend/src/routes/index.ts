@@ -10,6 +10,7 @@ import analyticsRoutes from './analytics.routes';
 import calendarRoutes from './calendar.routes';
 import chatRoutes from './chat.routes';
 import automationRoutes from './automation.routes';
+import adminRoutes from './admin.routes';
 
 const router = Router();
 
@@ -24,6 +25,7 @@ router.use('/analytics', analyticsRoutes);
 router.use('/calendar', calendarRoutes);
 router.use('/chat', chatRoutes);
 router.use('/automations', automationRoutes);
+router.use('/admin', adminRoutes);
 
 export default router;
 

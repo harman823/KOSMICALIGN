@@ -6,7 +6,6 @@ import { About } from "./pages/About";
 import { Services } from "./pages/Services";
 import { Booking } from "./pages/Booking";
 import { Contact } from "./pages/Contact";
-import { Admin } from "./pages/Admin";
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +17,6 @@ export const router = createBrowserRouter([
       { path: "services", Component: Services },
       { path: "booking", Component: Booking },
       { path: "contact", Component: Contact },
-      { path: "admin", Component: Admin },
       {
         path: "*",
         Component: () => (

@@ -10,8 +10,7 @@ export const verifyPaymentController = async (req: Request, res: Response) => {
       return;
     }
 
-    const webhookId = req.headers['x-razorpay-signature'] as string || undefined;
-    const result = await verifyPayment(orderId, razorpayPaymentId, razorpaySignature, webhookId);
+    const result = await verifyPayment(orderId, razorpayPaymentId, razorpaySignature);
 
     res.status(200).json({
       success: true,

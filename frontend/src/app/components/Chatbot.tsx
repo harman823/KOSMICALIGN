@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Bot, CalendarDays, Clock, Instagram, Mail, MessageCircle, Send, Sparkles, X } from "lucide-react";
 import { Link } from "react-router";
 import { askChatbot } from "../../lib/api";
+import { CONTACT_EMAIL, WHATSAPP_URL } from "../../lib/contact";
 
 type ChatRole = "bot" | "user";
 
@@ -65,7 +66,7 @@ const formatPrice = (price: number) =>
 function ThinkingDots() {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm text-[#7A7A7A]">Thinking</span>
+      <span className="text-sm text-[#001852]">Thinking</span>
       <span className="flex gap-1">
         {[0, 1, 2].map((dot) => (
           <motion.span
@@ -89,13 +90,13 @@ function MessageDetails({ payload }: { payload?: ChatPayload }) {
         <div className="space-y-2">
           {payload.availability.map((group) => (
             <div key={group.date} className="rounded-2xl border border-[#E5BE90]/30 bg-[#FFF5EA] p-3">
-              <div className="mb-2 flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-wide text-[#585858] sm:text-xs">
+              <div className="mb-2 flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-wide text-[#001852] sm:text-xs">
                 <CalendarDays className="h-3.5 w-3.5 text-[#E84C3D]" />
                 {group.day}
               </div>
               <div className="flex flex-wrap gap-2">
                 {group.slots.map((slot) => (
-                  <span key={slot.start} className="rounded-full bg-white px-3 py-1.5 text-center text-[0.68rem] font-semibold text-[#585858] shadow-sm sm:text-xs">
+                  <span key={slot.start} className="rounded-full bg-white px-3 py-1.5 text-center text-[0.68rem] font-semibold text-[#001852] shadow-sm sm:text-xs">
                     {slot.label}
                   </span>
                 ))}
@@ -110,13 +111,13 @@ function MessageDetails({ payload }: { payload?: ChatPayload }) {
           {payload.services.map((service) => (
             <div key={service.slug} className="rounded-2xl border border-[#E5BE90]/25 bg-white p-3 shadow-sm">
               <div className="flex flex-col items-start gap-2 sm:flex-row sm:justify-between sm:gap-3">
-                <h4 className="text-sm font-semibold text-[#585858]">{service.title}</h4>
+                <h4 className="text-sm font-semibold text-[#001852]">{service.title}</h4>
                 <span className="shrink-0 rounded-full bg-[#FFF5EA] px-2.5 py-1 text-[0.68rem] font-semibold text-[#E84C3D]">
                   {formatPrice(service.price)}
                 </span>
               </div>
-              <p className="mt-1 text-xs leading-relaxed text-[#7A7A7A]">{service.description}</p>
-              <div className="mt-2 flex items-center gap-1 text-[0.68rem] font-medium text-[#7A7A7A]">
+              <p className="mt-1 text-xs leading-relaxed text-[#001852]">{service.description}</p>
+              <div className="mt-2 flex items-center gap-1 text-[0.68rem] font-medium text-[#001852]">
                 <Clock className="h-3 w-3" /> {service.durationMin} minutes
               </div>
             </div>
@@ -222,7 +223,7 @@ export function Chatbot() {
                   key={message.id}
                   className={`max-w-[96%] rounded-2xl px-3.5 py-3 text-sm leading-relaxed shadow-sm sm:max-w-[92%] sm:px-4 ${
                     message.role === "bot"
-                      ? "self-start rounded-tl-sm border border-[#E5BE90]/20 bg-white text-[#585858]"
+                      ? "self-start rounded-tl-sm border border-[#E5BE90]/20 bg-white text-[#001852]"
                       : "self-end rounded-tr-sm bg-[#E84C3D] text-white"
                   }`}
                 >
@@ -244,7 +245,7 @@ export function Chatbot() {
                     key={prompt}
                     type="button"
                     onClick={() => sendMessage(prompt)}
-                    className="min-h-10 rounded-full bg-[#FFF5EA] px-3 py-2 text-left text-[0.68rem] font-medium leading-tight text-[#585858] transition-colors hover:bg-[#FDEBD0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E84C3D]/30 sm:text-xs"
+                    className="min-h-10 rounded-full bg-[#FFF5EA] px-3 py-2 text-left text-[0.68rem] font-medium leading-tight text-[#001852] transition-colors hover:bg-[#FDEBD0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E84C3D]/30 sm:text-xs"
                   >
                     {prompt}
                   </button>
@@ -262,7 +263,7 @@ export function Chatbot() {
               <input
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                className="min-w-0 flex-1 rounded-full bg-[#FFF5EA] px-4 py-3 text-sm text-[#585858] outline-none transition-shadow focus:ring-2 focus:ring-[#E84C3D]/25"
+                className="min-w-0 flex-1 rounded-full bg-[#FFF5EA] px-4 py-3 text-sm text-[#001852] outline-none transition-shadow focus:ring-2 focus:ring-[#E84C3D]/25"
                 placeholder="Ask about services, slots, or booking..."
               />
               <button
@@ -279,13 +280,13 @@ export function Chatbot() {
               <Link to="/booking" onClick={() => setIsOpen(false)} className="min-h-10 rounded-full bg-[#E84C3D] px-3 py-2 text-center text-xs font-semibold text-white transition-colors hover:bg-[#C0392B]">
                 Book
               </Link>
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="min-h-10 rounded-full bg-[#FFF5EA] px-3 py-2 text-center text-xs font-semibold text-[#585858] transition-colors hover:bg-[#FDEBD0]">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="min-h-10 rounded-full bg-[#FFF5EA] px-3 py-2 text-center text-xs font-semibold text-[#001852] transition-colors hover:bg-[#FDEBD0]">
                 <MessageCircle className="mx-auto h-3.5 w-3.5" />
               </a>
-              <a href="https://www.instagram.com/kosmicalign?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="min-h-10 rounded-full bg-[#FFF5EA] px-3 py-2 text-center text-xs font-semibold text-[#585858] transition-colors hover:bg-[#FDEBD0]">
+              <a href="https://www.instagram.com/kosmicalign?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="min-h-10 rounded-full bg-[#FFF5EA] px-3 py-2 text-center text-xs font-semibold text-[#001852] transition-colors hover:bg-[#FDEBD0]">
                 <Instagram className="mx-auto h-3.5 w-3.5" />
               </a>
-              <a href="mailto:hello@kosmicalign.com" className="min-h-10 rounded-full bg-[#FFF5EA] px-3 py-2 text-center text-xs font-semibold text-[#585858] transition-colors hover:bg-[#FDEBD0]">
+              <a href={`mailto:${CONTACT_EMAIL}`} className="min-h-10 rounded-full bg-[#FFF5EA] px-3 py-2 text-center text-xs font-semibold text-[#001852] transition-colors hover:bg-[#FDEBD0]">
                 <Mail className="mx-auto h-3.5 w-3.5" />
               </a>
             </div>

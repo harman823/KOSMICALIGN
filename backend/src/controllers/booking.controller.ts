@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { initiateBookingSchema } from '../validations/booking.validation';
-import { createPendingBooking } from '../services/booking.service';
+import { createPendingBooking, PaymentOrderCreationError } from '../services/booking.service';
 
 export const initiateBooking = async (req: Request, res: Response) => {
   try {
@@ -24,6 +24,14 @@ export const initiateBooking = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error('Error in initiateBooking controller:', error);
+
+    if (error instanceof PaymentOrderCreationError) {
+      res.status(error.statusCode).json({
+        success: false,
+        message: error.message,
+      });
+      return;
+    }
     
     if (
       error.message === 'Slot already booked or pending' ||

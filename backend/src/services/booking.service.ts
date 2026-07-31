@@ -13,6 +13,19 @@ const usingMockPayment =
   env.RAZORPAY_KEY_ID.toLowerCase().includes('placeholder') ||
   env.RAZORPAY_KEY_SECRET.toLowerCase().includes('placeholder');
 
+// One-time registration fee collected alongside the service fee (matches frontend REGISTRATION_PRICE)
+export const REGISTRATION_FEE = 105;
+
+export class PaymentOrderCreationError extends Error {
+  constructor(
+    message: string,
+    public readonly statusCode: 400 | 401 | 500,
+  ) {
+    super(message);
+    this.name = 'PaymentOrderCreationError';
+  }
+}
+
 type BookingPayload = {
   serviceId: string;
   bookingDateTime: string;
@@ -28,32 +41,50 @@ type BookingPayload = {
 };
 
 const createRazorpayOrder = async (serviceTitle: string, amount: number) => {
+  const amountInPaise = Math.round(amount * 100);
+
+  if (!Number.isFinite(amountInPaise) || amountInPaise < 100) {
+    throw new PaymentOrderCreationError('Payment amount must be at least 100 paise', 400);
+  }
+
   if (usingMockPayment) {
     return {
       id: `order_${Math.random().toString(36).slice(2, 11)}`,
-      amount: Math.round(amount * 100),
+      amount: amountInPaise,
       currency: 'INR',
       paymentMode: 'mock' as const,
       keyId: env.RAZORPAY_KEY_ID,
     };
   }
 
-  const order = await razorpay.orders.create({
-    amount: Math.round(amount * 100),
-    currency: 'INR',
-    receipt: `receipt_${Date.now()}`,
-    notes: {
-      serviceTitle,
-    },
-  });
+  try {
+    const order = await razorpay.orders.create({
+      amount: amountInPaise,
+      currency: 'INR',
+      receipt: `receipt_${Date.now()}`,
+      notes: {
+        serviceTitle,
+      },
+    });
 
-  return {
-    id: order.id,
-    amount: order.amount,
-    currency: order.currency,
-    paymentMode: 'razorpay' as const,
-    keyId: env.RAZORPAY_KEY_ID,
-  };
+    return {
+      id: order.id,
+      amount: order.amount,
+      currency: order.currency,
+      paymentMode: 'razorpay' as const,
+      keyId: env.RAZORPAY_KEY_ID,
+    };
+  } catch (error: any) {
+    const statusCode = error?.statusCode ?? error?.status;
+    const isAuthFailure = statusCode === 401;
+
+    throw new PaymentOrderCreationError(
+      isAuthFailure
+        ? 'Razorpay authentication failed'
+        : 'Razorpay order creation failed',
+      isAuthFailure ? 401 : 500,
+    );
+  }
 };
 
 export const createPendingBooking = async (payload: BookingPayload) => {
@@ -73,7 +104,9 @@ export const createPendingBooking = async (payload: BookingPayload) => {
     throw new Error('Slot unavailable due to calendar conflict');
   }
 
-  const order = await createRazorpayOrder(service.title, service.price);
+  // Total charged = service fee + one-time registration fee
+  const totalAmount = service.price + REGISTRATION_FEE;
+  const order = await createRazorpayOrder(service.title, totalAmount);
 
   return prisma.$transaction(async (tx: any) => {
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${`booking-day:${bookingDayKey}`}))`;
@@ -107,7 +140,7 @@ export const createPendingBooking = async (payload: BookingPayload) => {
       data: {
         bookingId: booking.id,
         orderId: order.id,
-        amount: service.price,
+        amount: totalAmount,
         currency: 'INR',
         status: 'PENDING',
       },

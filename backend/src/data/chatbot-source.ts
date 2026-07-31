@@ -40,7 +40,7 @@ Services:
 - Individual Therapy Sessions: one-on-one customised therapy for personal healing, emotional clarity, and alignment of mind, body, and spirit.
 - Adolescence Counselling: a safe structured space for adolescents to process emotions, life changes, identity questions, and relationship challenges.
 - Emotional Counselling: compassionate support for understanding, processing, and healing difficult emotions with culture-sensitive therapeutic tools.
-- Relationship Counselling: guidance for communication, emotional patterns, attachment wounds, and healthier connection.
+- Relationship Counselling: guidance for communication, attachment patterns, narcissistic abuse healing and healthier connections.
 - Issues Related to Repetitive Patterns in Life: support for identifying life patterns, connecting missing links, and resolving repeating cycles.
 - Feeling "Stuck in Life": therapeutic guidance for stagnant, unclear, or disconnected phases of life.
 - Intergenerational Trauma Therapy: structured work around inherited trauma, ancestral patterns, family imprints, and core issue origins.
