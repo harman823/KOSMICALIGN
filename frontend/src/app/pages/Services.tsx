@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { Link } from "react-router";
 import { Star, Clock, Sparkles, Heart, Info } from "lucide-react";
 import { fetchServices } from "../../lib/api";
-import { FALLBACK_SERVICES, REGISTRATION_PRICE, getServicePriceUnit, normalizeServicesResponse } from "../../lib/services";
+import { FALLBACK_SERVICES, getServicePriceUnit, normalizeServicesResponse } from "../../lib/services";
 
 const AESTHETICS = [
   { icon: Star, bg: "bg-[#FDF3E6]", accent: "text-[#E5BE90]" },
@@ -63,7 +63,7 @@ export function Services() {
             </div>
           </div>
           <div className="rounded-2xl sm:rounded-full bg-[#FFF5EA] px-4 sm:px-5 py-3 text-sm font-semibold text-[#001852]">
-            Registration charges: ₹{REGISTRATION_PRICE} per head, one-time
+            Pay only the listed service price
           </div>
         </div>
       </motion.section>

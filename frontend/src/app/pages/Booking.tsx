@@ -4,7 +4,7 @@ import { CheckCircle, ChevronRight, CalendarDays, MapPin } from "lucide-react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { fetchServices, fetchDaySlots, initiateBooking, fetchMonthlyAvailability, verifyPayment } from "../../lib/api";
-import { FALLBACK_SERVICES, REGISTRATION_PRICE, getServicePriceUnit, normalizeServicesResponse } from "../../lib/services";
+import { FALLBACK_SERVICES, getServicePriceUnit, normalizeServicesResponse } from "../../lib/services";
 import { WHATSAPP_NUMBER_DISPLAY } from "../../lib/contact";
 
 const ENABLE_RAZORPAY_CHECKOUT = true;
@@ -213,14 +213,11 @@ export function Booking() {
                       <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-[#001852]">
                         {getServicePriceUnit(service.title)}
                       </p>
-                      <p className="mt-2 text-xs font-semibold text-[#001852]">
-                        Registration ₹{REGISTRATION_PRICE}
-                      </p>
                     </div>
                   </button>
                 ))}
                 <div className="rounded-[2rem] bg-white/80 p-5 text-sm text-[#001852] border border-[#E5BE90]/30">
-                  Registration charges: ₹{REGISTRATION_PRICE} per head, one-time.
+                  No additional registration fee is charged. You pay only the listed service price.
                 </div>
               </div>
             )}
@@ -358,7 +355,7 @@ export function Booking() {
                 </div>
               </div>
               <div className="rounded-[2rem] bg-white p-5 text-sm text-[#001852] border border-[#E5BE90]/30">
-                Registration charges: ₹{REGISTRATION_PRICE} per head, one-time. Payment is collected securely through Razorpay.
+                You will pay only the listed service price. Payment is collected securely through Razorpay.
               </div>
             </div>
             <div className="flex gap-3 sm:gap-4 mt-8 sm:mt-12 max-w-lg mx-auto">
@@ -397,7 +394,7 @@ export function Booking() {
                 <div className="flex justify-between"><span className="font-medium">Time:</span> <span>{selectedTime.includes("T") ? new Date(selectedTime).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }) : selectedTime}</span></div>
                 <div className="flex justify-between"><span className="font-medium">Mode:</span> <span className="capitalize">{formData.location}</span></div>
                 <div className="flex justify-between"><span className="font-medium">Session Fee:</span> <span>₹{selectedServicePrice}</span></div>
-                <div className="flex justify-between"><span className="font-medium">Registration:</span> <span>₹{REGISTRATION_PRICE}</span></div>
+                <div className="flex justify-between font-semibold"><span>Total paid:</span> <span>₹{selectedServicePrice}</span></div>
               </div>
             </div>
           </motion.div>

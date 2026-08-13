@@ -2,6 +2,16 @@ import { SessionMode, type Prisma } from '@prisma/client';
 
 export const defaultServices: Prisma.ServiceCreateInput[] = [
   {
+    slug: 'razorpay-test',
+    title: 'Razorpay Test Transaction',
+    description: 'A one-rupee test booking for verifying the complete Razorpay payment and confirmation flow.',
+    durationMin: 15,
+    price: 1,
+    sessionMode: SessionMode.ONLINE,
+    idealOutcomes: ['Payment Verification', 'Checkout Testing'],
+    isActive: true,
+  },
+  {
     slug: 'clarity-call',
     title: 'Clarity Call',
     description: 'A focused one-on-one conversation to untangle what feels unclear, identify the next helpful step, and leave with a calmer sense of direction.',

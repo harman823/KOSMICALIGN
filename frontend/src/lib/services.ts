@@ -1,6 +1,13 @@
-export const REGISTRATION_PRICE = 105;
-
 export const FALLBACK_SERVICES = [
+  {
+    id: "razorpay-test",
+    slug: "razorpay-test",
+    title: "Razorpay Test Transaction",
+    description: "A one-rupee test booking for verifying the complete Razorpay payment and confirmation flow.",
+    durationMin: 15,
+    price: 1,
+    sessionMode: "ONLINE",
+  },
   {
     id: "clarity-call",
     slug: "clarity-call",

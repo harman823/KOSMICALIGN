@@ -13,9 +13,6 @@ const usingMockPayment =
   env.RAZORPAY_KEY_ID.toLowerCase().includes('placeholder') ||
   env.RAZORPAY_KEY_SECRET.toLowerCase().includes('placeholder');
 
-// One-time registration fee collected alongside the service fee (matches frontend REGISTRATION_PRICE)
-export const REGISTRATION_FEE = 105;
-
 export class PaymentOrderCreationError extends Error {
   constructor(
     message: string,
@@ -104,8 +101,8 @@ export const createPendingBooking = async (payload: BookingPayload) => {
     throw new Error('Slot unavailable due to calendar conflict');
   }
 
-  // Total charged = service fee + one-time registration fee
-  const totalAmount = service.price + REGISTRATION_FEE;
+  // Charge exactly the configured service price. Razorpay expects INR in paise.
+  const totalAmount = service.price;
   const order = await createRazorpayOrder(service.title, totalAmount);
 
   return prisma.$transaction(async (tx: any) => {
