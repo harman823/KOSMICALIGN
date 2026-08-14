@@ -45,12 +45,9 @@ Notes:
 
 ## Backend Environment Variables
 
-For local development, copy `.env.example` to either:
+For local development, copy `backend/.env.example` to `backend/.env`.
 
-- `backend/.env`
-- `.env.local`
-
-The backend loader supports both locations. On Vercel, set the same keys in Project Settings -> Environment Variables.
+`backend/.env` is the project's only local runtime environment file. The backend, Prisma, and Vite all read from it. Vite exposes only `RAZORPAY_KEY_ID` to the browser as `VITE_RAZORPAY_KEY_ID`; secrets such as `RAZORPAY_KEY_SECRET` remain server-only. On Vercel, set the same keys in Project Settings -> Environment Variables.
 
 ### Required
 
@@ -89,6 +86,10 @@ SMTP_PASS=
 
 ADMIN_KEY=kosmicalign_admin_mock
 CRON_SECRET=replace-with-a-long-random-secret
+
+ADMIN_PORTAL_PASSWORD=
+BACKEND_API_URL=http://localhost:3000/api/v1
+BACKEND_ADMIN_KEY=kosmicalign_admin_mock
 ```
 
 Behavior without optional credentials:
@@ -114,7 +115,7 @@ npm install
 
 ### 2. Configure the backend environment
 
-Copy `.env.example` to `backend/.env` and fill in the values you need.
+Copy `backend/.env.example` to `backend/.env` and fill in the values you need.
 
 ### 3. Generate Prisma client
 
@@ -164,6 +165,8 @@ What starts automatically with the backend:
 - Express API on port `3000`
 - reminder cron job that checks every hour
 - cleanup cron job that clears stale pending bookings every 15 minutes
+
+The separate admin app also loads its server-only local settings from `backend/.env`.
 
 ### Terminal 2: Run the frontend
 
@@ -310,7 +313,7 @@ This repo is configured for a single Vercel project:
 ### Deploy steps
 
 1. Create a Vercel project from the repo root.
-2. Add the environment variables from `.env.example` in Vercel Project Settings.
+2. Add the environment variables from `backend/.env.example` in Vercel Project Settings.
 3. Set `FRONTEND_URL` to your production domain, for example `https://kosmicalign.vercel.app`.
 4. Set `CRON_SECRET` to a long random value and keep it secret.
 5. Deploy with `vercel --prod` or by connecting the repo to Vercel Git deployment.
