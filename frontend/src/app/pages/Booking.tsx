@@ -120,7 +120,7 @@ export function Booking() {
         throw new Error("Razorpay Checkout failed to load. Please refresh and try again.");
       }
 
-      const razorpayKeyId = import.meta.env.VITE_RAZORPAY_KEY_ID || pData.razorpayKeyId;
+      // The key returned with this server-created order must be used for Checkout.\n      // A build-time key can drift from the backend secret and break authentication.\n      const razorpayKeyId = pData.razorpayKeyId;
       if (!razorpayKeyId) {
         throw new Error("Razorpay is not configured. Please contact support.");
       }
