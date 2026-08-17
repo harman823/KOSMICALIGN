@@ -2,10 +2,18 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import { env } from './config/env';
 
-const allowedOrigins = env.FRONTEND_URL
-  ? env.FRONTEND_URL.split(',').map((origin) => origin.trim()).filter(Boolean)
-  : [];
-allowedOrigins.push('http://localhost:5173');
+const allowedOrigins = new Set([
+  'https://kosmicalign.com',
+  'https://www.kosmicalign.com',
+  'http://localhost:5173',
+  ...(env.FRONTEND_URL
+    ? env.FRONTEND_URL.split(',').map((origin) => origin.trim()).filter(Boolean)
+    : []),
+]);
+
+if (process.env.VERCEL_URL) {
+  allowedOrigins.add(`https://${process.env.VERCEL_URL}`);
+}
 const apiBasePaths = ['/api/v1', '/v1'];
 
 const app = express();
@@ -13,7 +21,7 @@ const app = express();
 // Middlewares
 app.use(cors({
   origin: (origin, callback) => {
-    if (!allowedOrigins || !origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.has(origin)) {
       callback(null, true);
       return;
     }
